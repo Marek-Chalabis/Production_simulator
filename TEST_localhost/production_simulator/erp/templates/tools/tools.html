@@ -1,0 +1,65 @@
+{% extends 'base_search.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Tools
+{% endblock %}
+
+{% block search %}
+    {{ filter.form|crispy }}
+{% endblock %}
+
+{% block resoults %}
+    <table>
+        <tbody>
+        <tr onclick="window.location='#';">
+            <th>Tool id</th>
+            <th>Geometry</th>
+            <th>Material</th>
+            <th>Diameter(mm)</th>
+            <th>Tool Radius(mm)</th>
+            <th>Tool Length(mm)</th>
+            <th>Working length(mm)</th>
+            <th>Compensation(mm)</th>
+            <th>Shank diameter(mm)</th>
+            <th>Tool is in</th>
+            <th>Producer</th>
+            <th>Status</th>
+            <th>Price</th>
+            <th>Date of purchase</th>
+        </tr>
+            {% for tool in filter.qs %}
+                <tr onclick="window.location='{% url 'tool-detail' tool.tool_id %}';" style="cursor:pointer;">
+                {% if tool.status == 'Utilize the tool' %}
+                    <tr onclick="window.location='{% url 'tool-detail' tool.tool_id %}';" style="cursor:pointer;" class="bg-warning">
+                {% endif %}
+                    <td>{{ tool.tool_id }}</td>
+                    <td>{{ tool.geometry }}</td>
+                    <td>{{ tool.material }}</td>
+                    <td>{{ tool.diameter_mm }}</td>
+                    <td>{{ tool.tool_radius_mm }}</td>
+                    <td>{{ tool.tool_length_mm }}</td>
+                    <td>{{ tool.working_part_length_mm }}</td>
+                    <td>{{ tool.compensation_mm }}</td>
+                    <td>{{ tool.shank_diameter_mm }}</td>
+                        {% if tool.project.project_id == 1 %}
+                             <td>{{ tool.project }}</td>
+                        {% else %}
+                             <td>{{ tool.project }} <small>project</small></td>
+                        {% endif %}
+                    <td>{{ tool.producer }}</td>
+                    <td>{{ tool.status }}</td>
+                    <td>{{ tool.price }}</td>
+                    <td>{{ tool.date_of_purchase|date:"Y-m-d" }}</td>
+                    </a>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block right %}
+    <div class="p-2" >
+        <a style="text-decoration: none;" href="{% url 'tool-create' %}"><button type="button" class="btn-lg btn-block btn-primary">Add tool</button></a>
+    </div>
+{% endblock %}

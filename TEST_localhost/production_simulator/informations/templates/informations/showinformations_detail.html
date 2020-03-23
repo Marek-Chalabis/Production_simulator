@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Information - detail
+{% endblock %}
+
+{% block content %}
+    <div id="leftContainer">
+          <div class="media-body pt-1" >
+            <div class="article-metadata ">
+                <img src="{{ object.author.profile.image.url }}" class="rounded-circle z-depth-0" alt="author image"
+                     style="width: 30px; height: 30px;">
+              <a class="mr-2 text-primary" href="{% url 'user-informations' object.author.username %}">{{ object.author }}</a>
+                <small>({{ object.author.first_name }} {{ object.author.last_name }})</small>
+              <small class="text-muted">{{ object.date_posted|date:"d-m-Y D"}}</small>
+            </div>
+              <h2>{{ object.title }}</h2>
+            <p class="article-content">{{ object.info }}</p>
+              {% if object.author == user %}
+                  <div>
+                    <a class="btn btn-secondary btn-sm mb-1" href="{% url 'informations-update' object.id %}">Update</a>
+                    <a class="btn btn-danger btn-sm mb-1" href="{% url 'informations-delete' object.id %}">Delete</a>
+                  </div>
+              {% endif %}
+          </div>
+    </div>
+{% endblock content %}
+
+{% block right %}
+            <a href="{% url 'informations-create' %}"><button type="button" class="btn btn-primary  mt-2">Add new infromation</button></a>
+{% endblock right %}
+
+
+
+

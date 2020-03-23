@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Tool({{ object.tool_id }}) - detail
+{% endblock %}
+
+{% block content %}
+    <div class="container border w-75 p-3" style="background-color: lightgray;">
+        <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th scope="col">Parameter</th>
+                  <th scope="col">Value</th>
+                </tr>
+              </thead>
+            <tbody>
+               <tr>
+                <td><b>Tool id</b></td>
+                <td><i>{{ object.tool_id }}</i><br></td>
+               </tr>
+               <tr>
+                <td><b><b>Geometry</b></b></td>
+                <td><i>{{ object.geometry }}</i><br></td>
+               </tr>
+               <tr>
+                <td><b>Material</b></td>
+                <td><i>{{ object.material }}</i><br></td>
+               </tr>
+               <tr>
+                <td><b>Diameter(mm)</b></td>
+                <td><i>{{ object.diameter_mm }}</i><br></td>
+               </tr>
+               <tr>
+                <td><b>Shank diameter(mm)</b></td>
+                <td><i>{{ object.shank_diameter_mm }}</i><br></td>
+               </tr>
+               <tr>
+                <td><b>Tool Radius(mm)</b></td>
+                <td><i>{{ object.tool_radius_mm }}</i><br></td>
+               </tr>
+               <tr>
+                <td><b>Tool Length(mm)</b></td>
+                <td><i>{{ object.tool_length_mm }}</i><br></td>
+               </tr>
+               <tr>
+                <td><b>Working length(mm)</b></td>
+                <td><i>{{ object.working_part_length_mm }}</i><br></td>
+               </tr>
+               <tr>
+                <td><b>Compensation(mm)</b></td>
+                <td><i>{{ object.compensation_mm }}</i><br></td>
+               </tr>
+               <tr onclick="window.location='{% url 'project-detail' object.project_id %}';" style="cursor:pointer; background-color: #C7F0E9;">
+                <td><b>Tool is in</b></td>
+                <td><i>
+                    {% if object.project.project_id == 1 %}
+                        {{ object.project }}
+                    {% else %}
+                        {{ object.project }} <small>project</small>
+                    {% endif %}
+                </i><br></td>
+               </tr>
+               <tr onclick="window.location='{% url 'producer-detail' object.producer_id %}';" style="cursor:pointer; background-color: #C7F0E9;">
+                <td><b>Producer</b></td>
+                <td><i>{{ object.producer }}</i><br></td>
+               </tr>
+               <tr>
+                <td><b>Status</b></td>
+                <td><i>{{ object.status }}</i><br></td>
+               </tr>
+               <tr>
+                <td><b>Price</b></td>
+                <td><i>{{ object.price }}</i><br></td>
+               </tr>
+               <tr>
+                <td><b>Date of purchase</b></td>
+                <td><i>{{ object.date_of_purchase|date:"Y-m-d" }}</i><br></td>
+               </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block right %}
+    <div class="p-2">
+        <a style="text-decoration: none;" href="{% url 'tool-create' %}"><button type="button" class="btn-lg btn-block btn-primary">Add tool</button></a>
+        <a style="text-decoration: none;" href="{% url 'tool-update' object.tool_id %}"><button type="button" class="btn-lg btn-block btn-info  mt-2">Update tool</button></a>
+        <a style="text-decoration: none;" href="{% url 'tool-delete' object.tool_id %}"><button type="button" class="btn-lg btn-block btn-danger  mt-2">Delete tool</button></a>
+    </div>
+{% endblock %}
