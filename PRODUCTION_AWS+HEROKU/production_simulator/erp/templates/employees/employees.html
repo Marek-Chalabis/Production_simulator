@@ -1,0 +1,48 @@
+{% extends 'base_search.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Employees
+{% endblock %}
+
+{% block search %}
+    {{ filter.form|crispy }}
+{% endblock %}
+
+{% block resoults %}
+    <div>
+        <table class="table table-sm">
+            <tbody>
+            <tr onclick="window.location='#';">
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Email</th>
+                <th>Phone number</th>
+                <th>Position</th>
+                <th>Projects</th>
+                <th>Day of employment</th>
+            </tr>
+                {% for employee in filter.qs %}
+                    <tr onclick="window.location='{% url 'employee-detail' employee.uuid_employee %}';" style="cursor:pointer;">
+                        {% if employee.projects_set.all.count == 0 %}
+                            <tr onclick="window.location='{% url 'employee-detail' employee.uuid_employee %}';" style="cursor:pointer;" class="bg-warning">
+                        {% endif %}
+                        <td>{{ employee.first_name }}</td>
+                        <td>{{ employee.last_name }}</td>
+                        <td>{{ employee.email }}</td>
+                        <td>{{ employee.formatted_phone_number }}</td>
+                        <td>{{ employee.position }}</td>
+                        <td>{{ employee.projects_set.all.count }}</td>
+                        <td>{{ employee.date_of_employment|date:"d-m-Y" }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block right %}
+    <div class="p-2" >
+        <a style="text-decoration: none;" href="{% url 'employee-create' %}"><button type="button" class="btn-lg btn-block btn-primary">Add Employee</button></a>
+    </div>
+{% endblock %}
