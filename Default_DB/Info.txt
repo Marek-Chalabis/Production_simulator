@@ -1,0 +1,7 @@
+1. Connect DB to project
+2. Copy media to project
+3. In users_informations.txt you can find usernames and their passwords
+4. There is one superuser:
+	username - admin
+	password - admin
+REMEMBER TO MAKE MIGRAIONS AND MIGRATE
