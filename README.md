@@ -28,4 +28,6 @@ I encourage you to make your own by: Create_DB_PostgreSQL)
 
 !!! If you want to see this project online please let me know(project is offline due to the limits on AWS)!!!
 https://productionsimulator.herokuapp.com/
-
+You can login as a superuser:
+USERNAME - admin
+PASSWORD - admin
