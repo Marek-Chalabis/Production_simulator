@@ -21,7 +21,7 @@ To make it work start by:
 2. Run Create_DB_PostgreSQL and choose 999, follow the instructions
 
 *There are 3 folders in repository:
-- Random DB - with created DB (
+- Default_DB with created DB (
 I encourage you to make your own by: Create_DB_PostgreSQL)
 - TEST(localhost) - to set up project on your local sever
 - PRODUCTION(AWS+HEROKU) - to deploy project 
