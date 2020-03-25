@@ -31,5 +31,5 @@ https://productionsimulator.herokuapp.com/
 You can login as a superuser:
 USERNAME - admin
 PASSWORD - admin
-or as any user created like:
+or as any user created:
 PRODUCTION(AWS+HEROKU)->users_informations.txt
