@@ -30,7 +30,11 @@ Login as admin:
 Or as any user created:PRODUCTION(AWS+HEROKU)->users_informations.txt
 
 ## Screenshots
-![Example screenshot](./img/screenshot.png) Tutaj dodam jak poprawie kolory !!!!!!!!!!
+![Employee](./img/employee.PNG)
+![Information](./img/information.PNG)
+![Profile](./img/profile.PNG)
+![Project](./img/project.PNG)
+![Tool](./img/tool.PNG)
 
 ## Technologies
 * Python - version 3.8.1
