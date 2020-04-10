@@ -11,7 +11,7 @@
 * [Contact](#contact)
 
 ## General info
-###From the beginning the project has assumptions to be made such as:
+### From the beginning the project has assumptions to be made such as:
 * DB should be random and logical (imitate real production)
 * DB needs to be created automatically and easy to created 
 * Django should connect to created DB and get informations from there
