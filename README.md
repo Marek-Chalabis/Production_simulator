@@ -61,15 +61,13 @@ highly ENCOURAGE you to create your own database, it is a large part of the proj
 
 ## Features
 List of features:
-* information about the blood base and employees divided into individual departments
-* authorization system(login, logout, register, reset password, update) with secret key to prevent unauthorized people to login
-* every registered donor can check if they can donate blood
-* when donating blood, an employee sees the entire medical history of a donor
-* an employee can register a donor, update him/her and has insight into his/her detailed information
-* the employee can search for a donor using custom filters
-* App tracks donor status through liters of blood donated
-* There are a lot more features like checks if donor is 18+ or create valid PESEL for doonor, please just go throgh code there is all the informations
-
+* authorization system(login, logout, register, reset password, update)
+* fully functional "blog" with pagination(adjustment for production needs)
+* full logic related to the production plant has been preserved
+* easy-to-use database search engine based on filters
+* fully automatic postgreSQL database creation
+* include CRUD
+* the tools created by the program could be used in reality, all standards were maintained in their creation
 
 ## Contact
 Created by <b>Marek Chałabis</b> email: chalabismarek@gmail.com
