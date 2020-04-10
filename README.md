@@ -1,5 +1,5 @@
-# Blood_donation(https://blood-dontaion.herokuapp.com/)
-> Web application that allows to manage projects, employees and tools of production, it also allows to add information(posts) for others employees
+# production_simulator(https://productionsimulator.herokuapp.com/)
+> Web application that allows to manage projects, employees and tools of production, it also allows to add information(posts) for others employees (project is offline due to the limits on AWS, if you want to see it LIVE let me know)
 
 ## Table of contents
 * [General info](#general-info)
@@ -11,21 +11,23 @@
 * [Contact](#contact)
 
 ## General info
+###From the beginning the project has assumptions to be made such as:
+* DB should be random and logical (imitate real production)
+* DB needs to be created automatically and easy to created 
+* Django should connect to created DB and get informations from there
+* Setup for project should be as easy as possible, with all necessary instrucitons
+* for each of the modulus there will be instructions how to run it
+
 ### Project is separated into three major moduls;
 * Using Python to create a logical DB(PostgreSQL) for project
 * Using Django to display and handle interactions between DB and users
 * Make it live using Heroku+AWS
-#### Create Database
+
 ## Login details
 Login as admin:
 * username - admin
 * password - admin
-
-Check donor status without login as employee(random examples)
-* PESEL - First_name - Last_name      TUTAJ DODAĆ W WERSJI FINALNEJ
-* PESEL - First_name - Last_name
-
-All registered donors can be found on admin page(https://blood-dontaion.herokuapp.com/admin/)
+Or as any user created:PRODUCTION(AWS+HEROKU)->users_informations.txt
 
 ## Screenshots
 ![Example screenshot](./img/screenshot.png) Tutaj dodam jak poprawie kolory !!!!!!!!!!
