@@ -27,6 +27,7 @@
 Login as admin:
 * username - admin
 * password - admin
+
 Or as any user created:PRODUCTION(AWS+HEROKU)->users_informations.txt
 
 ## Screenshots
@@ -38,14 +39,21 @@ Or as any user created:PRODUCTION(AWS+HEROKU)->users_informations.txt
 
 ## Technologies
 * Python - version 3.8.1
-* Django - version 3.05
+* Django - version 3.03
+* PostgreSQL - version 	12.2
+* AWS
 * bootrap - version 4.4.1
 * jquery - version 3.4.1
 * HTML5/CSS
 
 ## Setup
-1. Install Python(+ all modules used in programs) and Django 
-2. Run program "fill_DB_blood_donation.py" and follow instructions there to run project and create your own unique DB
+### Modules 1(Database) +2(localhost)
+* Run this pip install (run as administrator):
+	python -m pip install --upgrade pip 
+	pip install numpy psycopg2 PyPDF2 requests selenium django django-crispy-forms django-filter django-bootstrap-form django-phonenumber-field phonenumbers  Pillow 
+	install Chrome + webdriver (https://www.youtube.com/watch?v=dz59GsdvUF8)
+* Run Create_DB_PostgreSQL and choose 999, follow the instructions
+### For instructions to deploy it on AWS go to: production_simulator/PRODUCTION_AWS+HEROKU/
 
 ## Features
 List of features:
@@ -68,23 +76,6 @@ Created by <b>Marek Chałabis</b> email: chalabismarek@gmail.com
 
 
 
-
-
-
-# production_simulator
-Project production_simulator is a fully functional Web aplication that allows to manage projects, employees and tools of production, it also allows to add informations(posts) for others.
-
-Project is separated into three major moduls;
-1. Using Python to create a logical DB(PostgreSQL) for project
-2. Using Django to display and handle interactions between DB and users
-3. Make it live using Heroku+AWS
- 
-From the beginning the project had assumptions to be made such as:
-- DB should be random and logical (imitate real production)
-- DB needs to be created automatically and easy to created 
-- Django should connect to created DB and get informations from there
-- Setup for project should be as easy as possible, with all necessary instrucitons
-- for each of the modulus there will be instructions how to run it
 
 To make it work start by:
 1. Run this pip install (run as administrator):
