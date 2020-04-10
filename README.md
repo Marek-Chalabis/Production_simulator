@@ -49,8 +49,10 @@ Or as any user created:PRODUCTION(AWS+HEROKU)->users_informations.txt
 ## Setup
 ### Modules 1(Database) +2(localhost)
 * Run this pip install (run as administrator):
+
 	python -m pip install --upgrade pip 
 	pip install numpy psycopg2 PyPDF2 requests selenium django django-crispy-forms django-filter django-bootstrap-form django-phonenumber-field phonenumbers  Pillow 
+	
 	install Chrome + webdriver (https://www.youtube.com/watch?v=dz59GsdvUF8)
 * Run Create_DB_PostgreSQL and choose 999, follow the instructions
 ### For instructions to deploy it on AWS go to: production_simulator/PRODUCTION_AWS+HEROKU/
