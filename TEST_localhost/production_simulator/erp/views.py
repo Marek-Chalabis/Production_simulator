@@ -1,18 +1,22 @@
-from django.shortcuts import render, HttpResponse, HttpResponseRedirect, redirect, reverse
-from .models import Tools, Projects, Employees, Producers
-from django.contrib.auth.decorators import login_required
-from .filters import ToolsFilter, ProjectsFilter, EmployeesFilter, ProducersFilter
-from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)
-import math
-
+from django.shortcuts import render, HttpResponse, HttpResponseRedirect, redirect, reverse, get_object_or_404
+from .models import Tools, Projects, Employees, Producers, EmployeesInProjects
 from .forms import CreateProject
+from .filters import ToolsFilter, ProjectsFilter, EmployeesFilter, ProducersFilter
+from django.contrib.auth.decorators import login_required
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
+from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)
+from django.db.models import Count, F, CharField, Value
+from django.db.models.functions import Concat
+import math
 
 
 class ToolsListView(LoginRequiredMixin, SuccessMessageMixin, ListView):
-    model = Tools
+    queryset = Tools.objects.only('tool_id', 'geometry', 'material', 'diameter_mm', 'tool_radius_mm', 'tool_length_mm',
+                                  'working_part_length_mm', 'compensation_mm', 'shank_diameter_mm', 'status',
+                                  'project__project_name', 'producer__producer_name')\
+        .select_related('producer', 'project')
     template_name = 'tools/tools.html'
     ordering = ['-diameter_mm', '-tool_radius_mm', '-tool_length_mm', '-working_part_length_mm']
     context_object_name = 'tools'
@@ -24,8 +28,17 @@ class ToolsListView(LoginRequiredMixin, SuccessMessageMixin, ListView):
 
 
 class ToolsDetailView(LoginRequiredMixin, SuccessMessageMixin, DetailView):
-    model = Tools
     template_name = 'tools/tools_detail.html'
+
+    def get_queryset(self):
+        tool = get_object_or_404(Tools, pk=self.kwargs.get('pk'))
+        queryset = Tools.objects.only('tool_id', 'geometry', 'material', 'diameter_mm', 'tool_radius_mm',
+                                      'tool_length_mm','working_part_length_mm', 'compensation_mm',
+                                      'shank_diameter_mm', 'status','price', 'date_of_purchase',
+                                      'project__project_name', 'project__project_id',
+                                      'producer__producer_name', 'producer__producer_id') \
+            .select_related('producer', 'project').filter(pk=tool.tool_id)
+        return queryset
 
 
 class ToolsCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -43,7 +56,7 @@ class ToolsCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     success_message = "Tool was created successfully"
 
     def form_valid(self, form):
-        # allows to overwride the form
+        # allows to override the form
         form.instance.shank_diameter_mm = math.ceil(form.instance.diameter_mm)
         form.instance.compensation_mm = 0
         form.instance.status = 'Can be use'
@@ -76,11 +89,11 @@ class ToolsDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 
 # -----------------------PROJECTS----------------------------
 
-
 class ProjectsListView(LoginRequiredMixin, SuccessMessageMixin, ListView):
-    model = Projects
+    queryset = Projects.objects.annotate(
+        number_of_tools=Count('tools', distinct=True), number_of_projects=Count('employees', distinct=True))
     template_name = 'projects/projects.html'
-    ordering = ['project_name']
+    ordering = 'project_name'
     context_object_name = 'projects'
 
     def get_context_data(self, **kwargs):
@@ -92,6 +105,25 @@ class ProjectsListView(LoginRequiredMixin, SuccessMessageMixin, ListView):
 class ProjectsDetailView(LoginRequiredMixin, SuccessMessageMixin, DetailView):
     model = Projects
     template_name = 'projects/projects_detail.html'
+
+    def get_queryset(self):
+        project = get_object_or_404(Projects, pk=self.kwargs.get('pk'))
+        queryset = Projects.objects.filter(pk=project.project_id).annotate(
+        number_of_tools=Count('tools', distinct=True), number_of_projects=Count('employees', distinct=True))
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        tools = Tools.objects.filter(project_id=self.kwargs.get('pk')).annotate(
+        full_description=Concat(Value('ID('), F('tool_id'), Value(')- '), F('material'), Value(' '), F('geometry'),
+                                Value(' Fi: '), F('diameter_mm'), output_field=CharField()))\
+            .order_by('-diameter_mm')
+        context['tools'] = tools
+
+        employees = Employees.objects.filter(employeesinprojects__project_id=self.kwargs.get('pk'))
+        context['employees'] = employees
+        return context
 
 
 class ProjectsCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):

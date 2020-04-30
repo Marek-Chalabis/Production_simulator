@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Informations
+    Information's
 {% endblock %}
 
 {% block content %}
@@ -11,8 +11,8 @@
                     <div class="article-metadata ">
                         <img src="{{ post.author.profile.image.url }}" class="rounded-circle z-depth-0" alt="author image"
                              style="width: 30px; height: 30px;">
-                      <a class="mr-2 text-primary" href="{% url 'user-informations' post.author.username %}">{{ post.author }}</a>
-                        <small>({{ post.author.first_name }} {{ post.author.last_name }})</small>
+                      <a class="mr-2 text-primary" href="{% url 'user-informations' post.author_username %}">{{ post.author }}</a>
+                        <small>({{ post.author_fullname }})</small>
                       <small class="text-muted">{{ post.date_posted|date:"d-m-Y D"}}</small>
                     </div>
                       <h2><a class="article-title text-info" href="{% url 'informations-detail' post.id %}">{{ post.title }}</a></h2>
@@ -51,9 +51,7 @@
 
 {% block right %}
      {% if user.is_authenticated %}
-        {% if request.get_full_path == '/' %}
-            <a href="{% url 'informations-create' %}"><button type="button" class="btn btn-primary  mt-2">Add new infromation</button></a>
-        {% endif %}
+        <a href="{% url 'informations-create' %}"><button type="button" class="btn btn-primary  mt-2">Add new infromation</button></a>
     {% endif %}
 {% endblock right %}
 

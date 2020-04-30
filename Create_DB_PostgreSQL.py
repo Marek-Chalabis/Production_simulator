@@ -23,7 +23,7 @@ HOST = 'localhost'
 USER = 'postgres'
 PASSWORD = 'admin'
 PORT = '5432'
-NAME_DB = 'production_simulator_default'
+NAME_DB = 'ps_2_test'
 # True - NAME_DB will be recreated (DROP and CREATE) False - DB already exists
 DB_RESET = True
 

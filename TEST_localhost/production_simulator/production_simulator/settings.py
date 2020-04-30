@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'production_simulator.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'production_simulator_DB',
+        'NAME': 'ps_2_test',
         'USER': 'postgres',
         'PASSWORD': 'admin',
         'HOST': 'localhost',

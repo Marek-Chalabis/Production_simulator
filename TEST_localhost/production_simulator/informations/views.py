@@ -1,33 +1,50 @@
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.db.models import F, ExpressionWrapper
 from .models import ShowInformations
 from django.contrib.auth.models import User
+from django.db.models.functions import Concat
+from django.db.models import F, Value, CharField
 # check if user is log in
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 
 
+# ==========query========
+query_information = ShowInformations.objects.select_related('author', 'author__profile').annotate(
+        author_username=F('author__username'),
+        author_fullname=Concat(F('author__first_name'), Value(' '), F('author__last_name'), output_field=CharField()))\
+    .order_by('-date_posted')
+
+
 class InformationsListView(ListView):
-    model = ShowInformations
+    # todo check for __profile in api
+    queryset = query_information
     template_name = 'informations/informations.html'
     context_object_name = 'posts'
-    ordering = ['-date_posted']
     paginate_by = 8
 
 
 class UserInformationsListView(ListView):
-    model = ShowInformations
     template_name = 'informations/user_informations.html'
     context_object_name = 'posts'
     paginate_by = 5
+    test = 'fsfs'
 
     def get_queryset(self):
-        user = get_object_or_404(User, username=self.kwargs.get('username'))
-        return ShowInformations.objects.filter(author=user).order_by('date_posted')
+        # gets posts added by selected user
+        # returns 404 if author dosent exists
+        author = get_object_or_404(User, username=self.kwargs.get('username'))
+        queryset = query_information.filter(author_id=author.id)
+        return queryset
 
 
 class InformationsDetailView(DetailView):
-    model = ShowInformations
+
+    def get_queryset(self):
+        info = get_object_or_404(ShowInformations, pk=self.kwargs.get('pk'))
+        queryset = query_information.filter(pk=info.id)
+        return queryset
 
 
 class InformationsCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):

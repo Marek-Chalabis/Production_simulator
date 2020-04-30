@@ -50,17 +50,11 @@
                 <td><b>Compensation(mm)</b></td>
                 <td><i>{{ object.compensation_mm }}</i><br></td>
                </tr>
-               <tr onclick="window.location='{% url 'project-detail' object.project_id %}';" style="cursor:pointer; background-color: #C7F0E9;">
-                <td><b>Tool is in</b></td>
-                <td><i>
-                    {% if object.project.project_id == 1 %}
-                        {{ object.project }}
-                    {% else %}
-                        {{ object.project }} <small>project</small>
-                    {% endif %}
-                </i><br></td>
+               <tr onclick="window.location='{% url 'project-detail' object.project.project_id %}';" style="cursor:pointer; background-color: #C7F0E9;">
+                <td><b>Tool is in project</b></td>
+                <td><i>{{ object.project }}</i><br></td>
                </tr>
-               <tr onclick="window.location='{% url 'producer-detail' object.producer_id %}';" style="cursor:pointer; background-color: #C7F0E9;">
+               <tr onclick="window.location='{% url 'producer-detail' object.producer.producer_id %}';" style="cursor:pointer; background-color: #C7F0E9;">
                 <td><b>Producer</b></td>
                 <td><i>{{ object.producer }}</i><br></td>
                </tr>

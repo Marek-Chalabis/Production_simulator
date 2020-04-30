@@ -10,7 +10,7 @@
     {{ filter.form|crispy }}
 {% endblock %}
 
-{% block resoults %}
+{% block results %}
     <div>
         <table class="table table-sm">
             <tbody>
@@ -28,9 +28,8 @@
                         <td>{{ project.project_name }}</td>
                         <td>{{ project.time_for_project_hours }}(hr)</td>
                         <td>{{ project.profit }}</td>
-<!--_set for one to many-->
-                        <td>{{ project.tools_set.all.count }}</td>
-                        <td>{{ project.employees.all.count }}</td>
+                        <td>{{ project.number_of_tools }}</td>
+                        <td>{{ project.number_of_projects }}</td>
                     </tr>
                 {% endfor %}
             </tbody>

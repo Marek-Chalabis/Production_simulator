@@ -32,11 +32,11 @@
                </tr>
                 <tr>
                 <td><b>Tools</b></td>
-                <td><i>{{ object.tools_set.count }}</i><br></td>
+                <td><i>{{ object.number_of_tools }}</i><br></td>
                </tr>
                 <tr>
                 <td><b>Employees</b></td>
-                <td><i>{{ object.employees.all.count }}</i><br></td>
+                <td><i>{{ object.number_of_projects }}</i><br></td>
                </tr>
             </tbody>
         </table>
@@ -50,10 +50,10 @@
                         </tr>
                       </thead>
                         <tbody>
-                               {% for tool in object.tools_set.all %}
+                               {% for tool in tools %}
                                     <tr>
                                         <td onclick="window.location='{% url 'tool-detail' tool.tool_id %}';"  style="cursor:pointer;">
-                                            {{ tool.tool_id }} - {{ tool.material }} {{ tool.geometry }} Fi: {{ tool.diameter_mm }}
+                                            {{ tool.full_description }}
                                         </td>
                                     </tr>
                                {% endfor %}
@@ -68,7 +68,7 @@
                             </tr>
                           </thead>
                         <tbody>
-                               {% for employee in object.employees.all %}
+                               {% for employee in employees %}
                                     <tr>
                                         <td onclick="window.location='{% url 'employee-detail' employee.uuid_employee %}';"  style="cursor:pointer;">
                                             {{ employee.first_name }} {{ employee.last_name }}({{ employee.position }})

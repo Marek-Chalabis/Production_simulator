@@ -9,7 +9,7 @@
     {{ filter.form|crispy }}
 {% endblock %}
 
-{% block resoults %}
+{% block results %}
     <table>
         <tbody>
         <tr onclick="window.location='#';">
@@ -22,11 +22,9 @@
             <th>Working length(mm)</th>
             <th>Compensation(mm)</th>
             <th>Shank diameter(mm)</th>
-            <th>Tool is in</th>
+            <th>Tool is in project</th>
             <th>Producer</th>
             <th>Status</th>
-            <th>Price</th>
-            <th>Date of purchase</th>
         </tr>
             {% for tool in filter.qs %}
                 <tr onclick="window.location='{% url 'tool-detail' tool.tool_id %}';" style="cursor:pointer;">
@@ -42,15 +40,9 @@
                     <td>{{ tool.working_part_length_mm }}</td>
                     <td>{{ tool.compensation_mm }}</td>
                     <td>{{ tool.shank_diameter_mm }}</td>
-                        {% if tool.project.project_id == 1 %}
-                             <td>{{ tool.project }}</td>
-                        {% else %}
-                             <td>{{ tool.project }} <small>project</small></td>
-                        {% endif %}
-                    <td>{{ tool.producer }}</td>
+                    <td>{{ tool.project.project_name }}</td>
+                    <td>{{ tool.producer.producer_name }}</td>
                     <td>{{ tool.status }}</td>
-                    <td>{{ tool.price }}</td>
-                    <td>{{ tool.date_of_purchase|date:"Y-m-d" }}</td>
                     </a>
                 </tr>
             {% endfor %}

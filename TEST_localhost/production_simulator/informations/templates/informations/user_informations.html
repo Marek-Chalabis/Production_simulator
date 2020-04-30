@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    {{ view.kwargs.username }}-informations({{ page_obj.paginator.count }})
+<!--view means as self meaning current website query get_queryset method(self_ contains all of query-->
+    {{ view.kwargs.username }}-information's({{ page_obj.paginator.count }})
 {% endblock %}
+
 {% block content %}
 <div id="leftContainer">
 {% for post in posts %}
@@ -10,18 +12,20 @@
     <div class="article-metadata ">
         <img src="{{ post.author.profile.image.url }}" class="rounded-circle z-depth-0" alt="author image"
              style="width: 30px; height: 30px;">
-      <a class="mr-2 text-primary" href="{% url 'user-informations' post.author.username %}">{{ post.author }}</a>
-        <small>({{ post.author.first_name }} {{ post.author.last_name }})</small>
+      <a class="mr-2 text-primary" href="{% url 'user-informations' post.author_username %}">{{ post.author }}</a>
+        <small>({{ post.author_fullname }})</small>
       <small class="text-muted">{{ post.date_posted|date:"d-m-Y D"}}</small>
     </div>
       <h2><a class="article-title text-info" href="{% url 'informations-detail' post.id %}">{{ post.title }}</a></h2>
     <p class="article-content">{{ post.info }}</p>
+
       {% if post.author == user %}
       <div>
         <a class="btn btn-secondary btn-sm mb-1" href="{% url 'informations-update' post.id %}">Update</a>
         <a class="btn btn-danger btn-sm mb-1" href="{% url 'informations-delete' post.id %}">Delete</a>
       </div>
       {% endif %}
+
   </div>
 {% endfor %}
     <div class="text-center">
