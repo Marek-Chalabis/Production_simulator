@@ -51,7 +51,7 @@ Or as any user created:PRODUCTION(AWS+HEROKU)->users_informations.txt
 * Run this pip install (run as administrator):
 
 	python -m pip install --upgrade pip 
-	pip install numpy psycopg2 PyPDF2 requests selenium django django-crispy-forms django-filter django-bootstrap-form django-phonenumber-field phonenumbers  Pillow 
+	pip install numpy psycopg2 PyPDF2 requests selenium django django-crispy-forms django-filter django-bootstrap-form django-phonenumber-field phonenumbers  Pillow django-debug-toolbar
 	
 	install Chrome + webdriver (https://www.youtube.com/watch?v=dz59GsdvUF8)
 * Run Create_DB_PostgreSQL and choose 999, follow the instructions(or attach the default database from this repository, but I 
