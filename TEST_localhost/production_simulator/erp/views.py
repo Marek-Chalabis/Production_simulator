@@ -1,13 +1,12 @@
-from django.shortcuts import render, HttpResponse, HttpResponseRedirect, redirect, reverse, get_object_or_404
-from .models import Tools, Projects, Employees, Producers, EmployeesInProjects
+from django.shortcuts import get_object_or_404
+from .models import Tools, Projects, Employees, Producers
 from .forms import CreateProject
 from .filters import ToolsFilter, ProjectsFilter, EmployeesFilter, ProducersFilter
-from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)
-from django.db.models import Count, F, CharField, Value
+from django.db.models import Count, F, CharField, Value, DecimalField, ExpressionWrapper
 from django.db.models.functions import Concat
 import math
 
@@ -15,7 +14,7 @@ import math
 class ToolsListView(LoginRequiredMixin, SuccessMessageMixin, ListView):
     queryset = Tools.objects.only('tool_id', 'geometry', 'material', 'diameter_mm', 'tool_radius_mm', 'tool_length_mm',
                                   'working_part_length_mm', 'compensation_mm', 'shank_diameter_mm', 'status',
-                                  'project__project_name', 'producer__producer_name')\
+                                  'project__project_name', 'producer__producer_name') \
         .select_related('producer', 'project')
     template_name = 'tools/tools.html'
     ordering = ['-diameter_mm', '-tool_radius_mm', '-tool_length_mm', '-working_part_length_mm']
@@ -33,8 +32,8 @@ class ToolsDetailView(LoginRequiredMixin, SuccessMessageMixin, DetailView):
     def get_queryset(self):
         tool = get_object_or_404(Tools, pk=self.kwargs.get('pk'))
         queryset = Tools.objects.only('tool_id', 'geometry', 'material', 'diameter_mm', 'tool_radius_mm',
-                                      'tool_length_mm','working_part_length_mm', 'compensation_mm',
-                                      'shank_diameter_mm', 'status','price', 'date_of_purchase',
+                                      'tool_length_mm', 'working_part_length_mm', 'compensation_mm',
+                                      'shank_diameter_mm', 'status', 'price', 'date_of_purchase',
                                       'project__project_name', 'project__project_id',
                                       'producer__producer_name', 'producer__producer_id') \
             .select_related('producer', 'project').filter(pk=tool.tool_id)
@@ -108,20 +107,25 @@ class ProjectsDetailView(LoginRequiredMixin, SuccessMessageMixin, DetailView):
 
     def get_queryset(self):
         project = get_object_or_404(Projects, pk=self.kwargs.get('pk'))
-        queryset = Projects.objects.filter(pk=project.project_id).annotate(
-        number_of_tools=Count('tools', distinct=True), number_of_projects=Count('employees', distinct=True))
+        queryset = Projects.objects.filter(pk=project.project_id) \
+            .annotate(number_of_tools=Count('tools', distinct=True),
+                      number_of_projects=Count('employees', distinct=True))
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        tools = Tools.objects.filter(project_id=self.kwargs.get('pk')).annotate(
-        full_description=Concat(Value('ID('), F('tool_id'), Value(')- '), F('material'), Value(' '), F('geometry'),
-                                Value(' Fi: '), F('diameter_mm'), output_field=CharField()))\
-            .order_by('-diameter_mm')
+        tools = Tools.objects.filter(project_id=self.kwargs.get('pk')) \
+            .annotate(full_description=Concat(Value('ID('), F('tool_id'), Value(')- '), F('material'), Value(' '),
+                                              F('geometry'), Value(' Fi: '), F('diameter_mm'),
+                                              output_field=CharField())).order_by('-diameter_mm')
         context['tools'] = tools
 
-        employees = Employees.objects.filter(employeesinprojects__project_id=self.kwargs.get('pk'))
+        employees = Employees.objects.select_related('position')\
+            .filter(employeesinprojects__project_id=self.kwargs.get('pk')).annotate(
+            full_name=Concat(F('first_name'), Value(' '), F('last_name'), Value(' ('),
+                             F('position__position_name'), Value(')'), output_field=CharField()))\
+            .order_by('-position')
         context['employees'] = employees
         return context
 
@@ -160,6 +164,7 @@ class ProjectsUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
             tool_update.save()
         return super().form_valid(form)
 
+
 class ProjectsDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     # delete function
     model = Projects
@@ -172,11 +177,15 @@ class ProjectsDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         messages.success(self.request, self.success_message % obj.__dict__)
         return super(ProjectsDeleteView, self).delete(request, *args, **kwargs)
 
+
 # ----------------------- Employees -------------------
 
-
 class EmployeesListView(LoginRequiredMixin, SuccessMessageMixin, ListView):
-    model = Employees
+    list_of_projects = Projects.objects.values_list('project_name', flat=True)
+    # adds number of projects
+    queryset = Employees.objects.select_related('position'). \
+        filter(employeesinprojects__project__project_name__in=list_of_projects).annotate(
+        number_of_projects=Count('projects'))
     template_name = 'employees/employees.html'
     ordering = ['last_name']
     context_object_name = 'employees'
@@ -188,15 +197,22 @@ class EmployeesListView(LoginRequiredMixin, SuccessMessageMixin, ListView):
 
 
 class EmployeesDetailView(LoginRequiredMixin, SuccessMessageMixin, DetailView):
-    model = Employees
     template_name = 'employees/employees_detail.html'
+
+    def get_queryset(self):
+        employee = get_object_or_404(Employees, uuid_employee=self.kwargs.get('pk'))
+        # ads salary
+        queryset = Employees.objects.select_related('position').filter(uuid_employee=employee.uuid_employee)\
+            .annotate(salary=ExpressionWrapper(F('position__hourly_rate') * 160, output_field=DecimalField()))
+        return queryset
 
     def get_context_data(self, **kwargs):
         # calculate salary
         context = super(EmployeesDetailView, self).get_context_data(**kwargs)
-        salary_hour = Employees.objects.get(uuid_employee=self.object.uuid_employee).position.hourly_rate
-        salary = int(salary_hour) * 160
-        context['salary'] = salary
+        # projects where employee is in
+        projects = Projects.objects.values('project_name', 'project_id')\
+            .filter(employeesinprojects__employee__uuid_employee=self.kwargs.get('pk'))
+        context['projects'] = projects
         return context
 
 

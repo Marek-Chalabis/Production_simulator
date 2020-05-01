@@ -39,7 +39,7 @@
                </tr>
                <tr>
                 <td><b>Salary</b></td>
-                <td><i>{{ salary }}zł</i><br></td>
+                <td><i>{{ object.salary }}zł</i><br></td>
                </tr>
                <tr>
                 <td><b>Day of employment</b></td>
@@ -54,7 +54,7 @@
             </tr>
           </thead>
             <tbody>
-                   {% for project in object.projects_set.all %}
+                   {% for project in projects %}
                         <tr>
                             <td onclick="window.location='{% url 'project-detail' project.project_id %}';"  style="cursor:pointer;">
                                 {{ project.project_name }}

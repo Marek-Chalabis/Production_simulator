@@ -2,7 +2,7 @@
 
 {% block title %}
 <!--view means as self meaning current website query get_queryset method(self_ contains all of query-->
-    {{ view.kwargs.username }}-information's({{ page_obj.paginator.count }})
+    {{ view.kwargs.username }}-information({{ page_obj.paginator.count }})
 {% endblock %}
 
 {% block content %}
@@ -54,7 +54,7 @@
 
 {% block right %}
      {% if user.is_authenticated %}
-            <a href="{% url 'informations-create' %}"><button type="button" class="btn btn-primary  mt-2">Add new infromation</button></a>
+            <a href="{% url 'informations-create' %}"><button type="button" class="btn btn-primary  mt-2">Add new information</button></a>
     {% endif %}
 {% endblock right %}
 

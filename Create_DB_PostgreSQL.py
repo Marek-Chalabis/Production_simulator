@@ -46,10 +46,10 @@ assert NUMBER_OF_PROJECTS > 0, 'NUMBER_OF_PROJECTS needs to be more then 0'
 assert NUMBER_OF_EMPLOYEES > 0, 'NUMBER_OF_EMPLOYEES needs to be more then 0'
 
 # -------------------------------CREATE DUMMY DATA FOR WEBSITE --------------------------------------------
-# number of informations(posts) separated to all active users
-NUMBER_OF_INFORMATIONS_posts = 300
-# table name in PostgreSQL for informations(posts)
-TABLE_NAME_FOR_INFORMATIONS = 'informations_showinformations'
+# number of information (posts) separated to all active users
+NUMBER_OF_INFORMATION_posts = 300
+# table name in PostgreSQL for information (posts)
+TABLE_NAME_FOR_INFORMATION = 'informations_showinformations'
 
 # -------------------------------ADD USERS--------------------------------------------------
 # url for create/update users
@@ -847,7 +847,7 @@ def create_json_file():
     informations = []
     file_name = 'informations.json'
     list_of_users = list_of_active_users()
-    for i in range(NUMBER_OF_INFORMATIONS_posts):
+    for i in range(NUMBER_OF_INFORMATION_posts):
         informations.append({
             'title': RandomInformation.give_random_number_of_words(random.randint(1, 10)),
             'info': RandomInformation.give_random_number_of_words(random.randint(10, 200)),
@@ -877,7 +877,7 @@ def create_informations_db(number_of_inf):
         '{}',
         '{}',
         {}
-        );'''.format(TABLE_NAME_FOR_INFORMATIONS,
+        );'''.format(TABLE_NAME_FOR_INFORMATION,
                      RandomInformation.give_random_number_of_words(random.randint(1, 10)),
                      RandomInformation.give_random_number_of_words(random.randint(10, 200)),
                      RandomInformation.give_random_date("1/1/2013"),
@@ -912,9 +912,9 @@ option = input(f"What you want to do?"
                f"WARNING THIS WILL DELETE EXISTING DATABASE OF THIS NAME '{NAME_DB}'"
                f" if DB_RESET=True (At this moment DB_RESET={DB_RESET})"
                f"\n---------------OPTIONS BELOW ONLY AVAILABLE IF YOU MAKE MIGRATIONS IN DJANGO-------------------"
-               f"\n2-   Produce dummy date ({NUMBER_OF_INFORMATIONS_posts} informations(posts))"
+               f"\n2-   Produce dummy date ({NUMBER_OF_INFORMATION_posts} informations(posts))"
                f"\n3-   Add {NUMBER_OF_USERS_TO_ADD} users"
-               f"\n4-   Create {NUMBER_OF_USERS_TO_ADD} new users and {NUMBER_OF_INFORMATIONS_posts} "
+               f"\n4-   Create {NUMBER_OF_USERS_TO_ADD} new users and {NUMBER_OF_INFORMATION_posts} "
                f"informations(posts)"
                f"\n5-   Remowe all users and informations-posts "
                f"(and restart auto_id for users and informations(posts))\n"
@@ -933,18 +933,18 @@ elif int(option) == 2:
     choice = input('\nHow you wanna add informations(posts) to the DB?'
                    '\n1-     Manual thru JSON file'
                    '\n2-     Automatically thru PostgeSQL'
-                   '(check if the table name for informations = {})\n'.format(TABLE_NAME_FOR_INFORMATIONS))
+                   '(check if the table name for informations = {})\n'.format(TABLE_NAME_FOR_INFORMATION))
     if int(choice) == 1:
         create_json_file()
     elif int(choice) == 2:
-        create_informations_db(NUMBER_OF_INFORMATIONS_posts)
+        create_informations_db(NUMBER_OF_INFORMATION_posts)
 
 elif int(option) == 3:
     CreateUsers(NUMBER_OF_USERS_TO_ADD)
 
 elif int(option) == 4:
     CreateUsers(NUMBER_OF_USERS_TO_ADD)
-    create_informations_db(NUMBER_OF_INFORMATIONS_posts)
+    create_informations_db(NUMBER_OF_INFORMATION_posts)
 
 elif int(option) == 5:
     decision = input("Are you sure you want to remove users and informations(posts)?"
@@ -1008,7 +1008,7 @@ elif int(option) == 999:
     while step.lower() != 'next':
         step = input('write "next" to continue')
 
-    create_informations_db(NUMBER_OF_INFORMATIONS_posts)
+    create_informations_db(NUMBER_OF_INFORMATION_posts)
 
     print(f'\nCongratulations, Go to your website:'
           f'\n{URL}')

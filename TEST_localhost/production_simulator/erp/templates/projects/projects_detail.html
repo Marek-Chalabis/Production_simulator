@@ -71,7 +71,7 @@
                                {% for employee in employees %}
                                     <tr>
                                         <td onclick="window.location='{% url 'employee-detail' employee.uuid_employee %}';"  style="cursor:pointer;">
-                                            {{ employee.first_name }} {{ employee.last_name }}({{ employee.position }})
+                                            {{ employee.full_name }}
                                         </td>
                                     </tr>
                                {% endfor %}

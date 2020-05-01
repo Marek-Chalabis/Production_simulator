@@ -24,7 +24,7 @@
             </tr>
                 {% for employee in filter.qs %}
                     <tr onclick="window.location='{% url 'employee-detail' employee.uuid_employee %}';" style="cursor:pointer;">
-                        {% if employee.projects_set.all.count == 0 %}
+                        {% if employee.number_of_projects == 0 %}
                             <tr onclick="window.location='{% url 'employee-detail' employee.uuid_employee %}';" style="cursor:pointer;" class="bg-warning">
                         {% endif %}
                         <td>{{ employee.first_name }}</td>
@@ -32,7 +32,7 @@
                         <td>{{ employee.email }}</td>
                         <td>{{ employee.formatted_phone_number }}</td>
                         <td>{{ employee.position }}</td>
-                        <td>{{ employee.projects_set.all.count }}</td>
+                        <td>{{ employee.number_of_projects }}</td>
                         <td>{{ employee.date_of_employment|date:"d-m-Y" }}</td>
                     </tr>
                 {% endfor %}

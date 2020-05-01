@@ -26,7 +26,7 @@ SECRET_KEY = '14z7s_bd1h&-_6hsb6u(ptc9u3*vzs+(84^19j4!sxz&&7^nxg'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar'
 ]
 
 MIDDLEWARE = [
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'production_simulator.urls'
@@ -155,5 +157,8 @@ EMAIL_HOST_USER = '***'
 EMAIL_HOST_PASSWORD = '***'
 EMAIL_PORT = 587
 
-
 PHONENUMBER_DB_FORMAT = 'E164'
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]

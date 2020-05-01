@@ -5,10 +5,8 @@ from .models import ShowInformations
 from django.contrib.auth.models import User
 from django.db.models.functions import Concat
 from django.db.models import F, Value, CharField
-# check if user is log in
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
-
 
 # ==========query========
 query_information = ShowInformations.objects.select_related('author', 'author__profile').annotate(
@@ -18,7 +16,6 @@ query_information = ShowInformations.objects.select_related('author', 'author__p
 
 
 class InformationsListView(ListView):
-    # todo check for __profile in api
     queryset = query_information
     template_name = 'informations/informations.html'
     context_object_name = 'posts'
@@ -33,7 +30,7 @@ class UserInformationsListView(ListView):
 
     def get_queryset(self):
         # gets posts added by selected user
-        # returns 404 if author dosent exists
+        # returns 404 if author doesn't exists
         author = get_object_or_404(User, username=self.kwargs.get('username'))
         queryset = query_information.filter(author_id=author.id)
         return queryset
