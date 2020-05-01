@@ -48,6 +48,7 @@ Or as any user created:PRODUCTION(AWS+HEROKU)->users_informations.txt
 
 ## Setup
 ### Modules 1(Database) +2(localhost)
+* <b>==NOTE</b> AWS+Heroku folder is not updated it will be when everything is checked. You can do it by yourself just follow the instructions for AWS
 * Run this pip install (run as administrator):
 
 	python -m pip install --upgrade pip 
@@ -61,6 +62,7 @@ highly ENCOURAGE you to create your own database, it is a large part of the proj
 
 ## Features
 List of features:
+* optimized queries
 * authorization system(login, logout, register, reset password, update)
 * fully functional "blog" with pagination(adjustment for production needs)
 * full logic related to the production plant has been preserved
