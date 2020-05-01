@@ -47,8 +47,8 @@ Or as any user created:PRODUCTION(AWS+HEROKU)->users_informations.txt
 * HTML5/CSS
 
 ## Setup
+#### <b>NOTE</b> AWS+Heroku folder is not updated it will be when everything is checked. You can do it by yourself just follow the instructions for AWS
 ### Modules 1(Database) +2(localhost)
-* <b>==NOTE</b> AWS+Heroku folder is not updated it will be when everything is checked. You can do it by yourself just follow the instructions for AWS
 * Run this pip install (run as administrator):
 
 	python -m pip install --upgrade pip 
