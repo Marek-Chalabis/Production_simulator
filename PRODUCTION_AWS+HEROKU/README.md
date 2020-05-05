@@ -89,7 +89,7 @@
 	
 17. Set requirements.txt for Heroku, run terminal in yout virtual enviroment and run this commend:
 
-	pip freeze > requirements.txt
+		pip freeze > requirements.txt
 		
 18. Create Runtime.txt
 
