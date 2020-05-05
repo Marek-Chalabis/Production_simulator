@@ -59,7 +59,8 @@ Or as any user created -> users_informations.txt
 * Run Create_DB_PostgreSQL and choose 999, follow the instructions(or attach the default database from this repository, but I 
 highly ENCOURAGE you to create your own database, it is a large part of the project)
 
-### For instructions to deploy it on AWS go to -> AWS_HEROKU.md
+### Module 3 
+* For instructions to deploy it on AWS go to -> AWS_HEROKU.md
 
 ## Features
 List of features:
@@ -71,6 +72,7 @@ List of features:
 * fully automatic postgreSQL database creation
 * include CRUD
 * the tools created by the program could be used in reality, all standards were maintained in their creation
+* added caching
 
 ## Contact
 Created by <b>Marek Chałabis</b> email: chalabismarek@gmail.com
