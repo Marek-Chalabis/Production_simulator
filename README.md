@@ -28,7 +28,7 @@ Login as admin:
 * username - admin
 * password - admin
 
-Or as any user created:users_informations.txt
+Or as any user created -> users_informations.txt
 
 ## Screenshots
 ![Employee](./img/employee.PNG)
@@ -38,27 +38,28 @@ Or as any user created:users_informations.txt
 ![Tool](./img/tool.PNG)
 
 ## Technologies
-* Python - version 3.8.1
-* Django - version 3.03
+* Python - version 3.8.2
+* Django - version 3.05
 * PostgreSQL - version 	12.2
-* AWS
+* AWS(RDS, S3)
 * bootrap - version 4.4.1
 * jquery - version 3.4.1
 * HTML5/CSS
 
 ## Setup
-#### <b>NOTE</b> AWS+Heroku folder is not updated it will be when everything is checked. You can do it by yourself just follow the instructions for AWS
+
 ### Modules 1(Database) +2(localhost)
 * Run this pip install (run as administrator):
 
-	python -m pip install --upgrade pip 
+	(this cuould be outdated just install any libary needed)
 	pip install numpy psycopg2 PyPDF2 requests selenium django django-crispy-forms django-filter django-bootstrap-form django-phonenumber-field phonenumbers  Pillow django-debug-toolbar
 	
 	install Chrome + webdriver (https://www.youtube.com/watch?v=dz59GsdvUF8)
+	
 * Run Create_DB_PostgreSQL and choose 999, follow the instructions(or attach the default database from this repository, but I 
 highly ENCOURAGE you to create your own database, it is a large part of the project)
 
-### For instructions to deploy it on AWS go to: production_simulator/PRODUCTION_AWS+HEROKU/
+### For instructions to deploy it on AWS go to -> AWS_HEROKU.md
 
 ## Features
 List of features:
