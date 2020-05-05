@@ -7,7 +7,6 @@ from django.db.models.functions import Concat
 from django.db.models import F, Value, CharField
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
-
 # ==========query========
 query_information = ShowInformations.objects.select_related('author', 'author__profile').annotate(
         author_username=F('author__username'),

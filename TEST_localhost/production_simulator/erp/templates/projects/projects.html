@@ -1,6 +1,6 @@
 {% extends 'base_search.html' %}
 {% load crispy_forms_tags %}
-
+{% load cache %}
 
 {% block title %}
     Projects
@@ -11,30 +11,32 @@
 {% endblock %}
 
 {% block results %}
-    <div>
-        <table class="table table-sm">
-            <tbody>
-            <tr onclick="window.location='#';">
-                <th>Project ID</th>
-                <th>Project Name</th>
-                <th>Time for project</th>
-                <th>Profit(zł)</th>
-                <th>Tools</th>
-                <th>Employyees</th>
-            </tr>
-                {% for project in filter.qs %}
-                    <tr onclick="window.location='{% url 'project-detail' project.project_id %}';" style="cursor:pointer;">
-                        <td>{{ project.project_id }}</td>
-                        <td>{{ project.project_name }}</td>
-                        <td>{{ project.time_for_project_hours }}(hr)</td>
-                        <td>{{ project.profit }}</td>
-                        <td>{{ project.number_of_tools }}</td>
-                        <td>{{ project.number_of_projects }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+    {% cache 3600 projects %}
+        <div>
+            <table class="table table-sm">
+                <tbody>
+                <tr onclick="window.location='#';">
+                    <th>Project ID</th>
+                    <th>Project Name</th>
+                    <th>Time for project</th>
+                    <th>Profit(zł)</th>
+                    <th>Tools</th>
+                    <th>Employyees</th>
+                </tr>
+                    {% for project in filter.qs %}
+                        <tr onclick="window.location='{% url 'project-detail' project.project_id %}';" style="cursor:pointer;">
+                            <td>{{ project.project_id }}</td>
+                            <td>{{ project.project_name }}</td>
+                            <td>{{ project.time_for_project_hours }}(hr)</td>
+                            <td>{{ project.profit }}</td>
+                            <td>{{ project.number_of_tools }}</td>
+                            <td>{{ project.number_of_projects }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endcache %}
 {% endblock %}
 
 {% block right %}

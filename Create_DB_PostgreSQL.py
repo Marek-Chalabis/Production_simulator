@@ -3,6 +3,7 @@
 # creates dummy posts for django website in json file(under specifications)
 # creates random users with different pics (using selenium)
 # specify parameters for different actions!!!
+import Random_generator
 import numpy
 import math
 import datetime
@@ -17,21 +18,23 @@ import random
 import json
 import shutil
 import urllib.request
+from selenium import webdriver
 from selenium.webdriver import Chrome
+from selenium.webdriver.chrome.options import Options
 # fill with correct data to establish connection to server
 HOST = 'localhost'
 USER = 'postgres'
 PASSWORD = 'admin'
 PORT = '5432'
-NAME_DB = 'ps_2_test'
+NAME_DB = 'production_simulator_DB'
 # True - NAME_DB will be recreated (DROP and CREATE) False - DB already exists
 DB_RESET = True
 
 # ------------------------------CREATE DATABASE--------------------------------
 # Fill the DATA
-NUMBER_OF_TOOLS = 1000
-NUMBER_OF_PROJECTS = 25
-NUMBER_OF_EMPLOYEES = 50
+NUMBER_OF_TOOLS = 3000
+NUMBER_OF_PROJECTS = 75
+NUMBER_OF_EMPLOYEES = 200
 BASE_SALARY_PER_HOUR = 20
 # leave first variable in LIST_PRODUCER, still you can add others producers
 LIST_PRODUCER = ['Unsupported Producer', 'Fanar', 'YG-1', 'GMG', "Ceratizit", 'Guhring']
@@ -47,7 +50,7 @@ assert NUMBER_OF_EMPLOYEES > 0, 'NUMBER_OF_EMPLOYEES needs to be more then 0'
 
 # -------------------------------CREATE DUMMY DATA FOR WEBSITE --------------------------------------------
 # number of information (posts) separated to all active users
-NUMBER_OF_INFORMATION_posts = 300
+NUMBER_OF_INFORMATION_posts = 1000
 # table name in PostgreSQL for information (posts)
 TABLE_NAME_FOR_INFORMATION = 'informations_showinformations'
 
@@ -477,7 +480,7 @@ class RandomInformation:
         # returns name and last name
         gender = random.choice(['M', 'F'])
         last_name = RandomInformation.__give_last_name(gender)
-        first_name = RandomInformation.__give_name(gender)
+        first_name = Random_generator.Person.first_name(gender)
         return first_name, last_name
 
     @staticmethod
@@ -555,18 +558,6 @@ class RandomInformation:
         return password
 
     @classmethod
-    def __give_name(cls, gender):
-        # returns random name arguments needs to be M - male F - female
-        if (len(cls.female_names) or len(cls.male_names)) == 0:
-            cls.__get_names()
-        if gender == 'M':
-            return random.choice(cls.male_names).title()
-        elif gender == "F":
-            return random.choice(cls.female_names).title()
-        else:
-            print('Give correct argument F or M')
-
-    @classmethod
     def __give_last_name(cls, gender):
         # returns random last_name arguments needs to be M - male F - female
         if len(cls.male_last_name or cls.female_last_name) == 0:
@@ -603,24 +594,6 @@ class RandomInformation:
                 else:
                     cls.male_last_name.append(last_name)
         os.remove(temp_file_name)
-
-    @classmethod
-    def __get_names(cls):
-        # downloads csv file, formats it and returns list of last names
-        response = requests.get(cls.url_names)
-        with open(os.path.join(os.getcwd(), "names.csv"), 'wb') as f:
-            f.write(response.content)
-
-        with open("names.csv", encoding="utf8") as f:
-            text = csv.reader(f)
-            next(f)
-            for line in text:
-                name = line[0].replace("'", '')
-                if line[1].replace("'", '') == 'M':
-                    cls.male_names.append(name)
-                else:
-                    cls.female_names.append(name)
-        os.remove("names.csv")
 
     @classmethod
     def __get_domains(cls):
@@ -669,7 +642,9 @@ class CreateUsers:
         if os.path.exists(DIRECTORY) is False:
             os.mkdir(DIRECTORY)
 
-        browser = Chrome()
+        options = Options()
+        options.headless = True
+        browser = webdriver.Chrome(options=options)
         # website with free images
         browser.get('https://all-free-download.com/')
 
@@ -985,6 +960,7 @@ elif int(option) == 999:
           '\n1 - python manage.py makemigrations'
           '\n2 - python manage.py migrate erp --fake'
           '\n3 - python manage.py migrate'
+          '\n3 - python manage.py createcachetable'
           '\n4 - python manage.py createsuperuser'
           '\n5 - python manage.py runserver\n'
           '\nAfter you finished all the tasks')
@@ -1012,51 +988,3 @@ elif int(option) == 999:
 
     print(f'\nCongratulations, Go to your website:'
           f'\n{URL}')
-
-    # @classmethod
-    # def number_of_branches(cls):
-    #     # returns number of branches from DB
-    #     connect_to_db(HOST, USER, PASSWORD, PORT, NAME_DB)
-    #     cur.execute('SELECT COUNT (distinct(branch)) FROM users_profile;')
-    #     info = cur.fetchall()
-    #     for row in info:
-    #         for x in row:
-    #             info = int(x)
-    #     print(info)
-    #     con.close()
-    #     return info
-# UsedToolsInProjects()
-# class UsedToolsInProjects:
-#     # create table-connect between projects and tools
-#
-#     table_name_tools_projects = 'tools_in_projects'
-#
-#     def __init__(self):
-#         UsedToolsInProjects.__create_table_for_tools_in_use()
-#         max_tools = NUMBER_OF_TOOLS // NUMBER_OF_PROJECTS
-#         min_tools = max_tools // 2
-#         for i in range(1, NUMBER_OF_PROJECTS + 1):
-#             for x in range(random.randint(min_tools, max_tools)):
-#                 cur.execute('''INSERT INTO {}(
-#                 tool_id,
-#                 project_id)
-#                 VALUES (
-#                         {},
-#                         {}
-#                          )'''.format(UsedToolsInProjects.table_name_tools_projects,
-#                                      RandomInformation.give_free_tool(),
-#                                      i))
-#             con.commit()
-#
-#     @classmethod
-#     def __create_table_for_tools_in_use(cls):
-#         # create table
-#         cur.execute('''DROP TABLE IF EXISTS {};'''.format(cls.table_name_tools_projects))
-#         cur.execute('''CREATE TABLE {} (
-#         connection_id BIGSERIAL NOT NULL PRIMARY KEY,
-#         tool_id BIGSERIAL NOT NULL,
-#         project_id SERIAL NOT NULL
-#                   );
-#                 '''.format(cls.table_name_tools_projects
-#                            ))
-#         con.commit()
