@@ -64,7 +64,7 @@
 		
 	Secret access key = "***"
 	
-8. Establish connection in django (super_secret_informations, copy this lines:
+8. Establish connection in django (super_secret_informations), copy this lines(with your data):
 
 	AWS_ACCESS_KEY_ID = Access key ID
 	
