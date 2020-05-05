@@ -51,12 +51,19 @@
 		</CORSRule>
 		</CORSConfiguration>
 7. Create user for S3 in AWS->IAM(User->Add user)
+
 	check Programmatic access (allows user to make updates etc.)
+	
 	Next->Attach existing policies directly->check AmazonS3FullAccess
+	
 	Next....Create:
-		User = "***"
-		Access key ID = "***"
-		Secret access key = "***"
+	
+	User = "***"
+		
+	Access key ID = "***"
+		
+	Secret access key = "***"
+	
 8. Establish connection in django, copy this lines:
 
 	AWS_ACCESS_KEY_ID = Access key ID
