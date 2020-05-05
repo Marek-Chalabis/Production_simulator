@@ -79,6 +79,7 @@
 12. Upload css/profile_images files into S3
 
 13. Create Heroku account and start project
+
 	project name = "***"
 	
 14. Download GIT
@@ -89,44 +90,43 @@
 17. Set requirements.txt for Heroku, run terminal in yout virtual enviroment and run this commend:
 
 	pip freeze > requirements.txt
-	
-	* open requirements.txt and change:
-		requests==2.22.0 -> requests==2.23.0
-		if there is a lower version
 		
 18. Create Runtime.txt
-	Write there Python version example = python-3.8.1
+
+	Write there Python version example = python-3.8.2
 	
 19. Create Procfile WITHOUT ANY EXTANSION	
+
 	Write: 
-		web: gunicorn projectname.wsgi --log-file -
-		example = web: gunicorn production_simulator.wsgi --log-file -
+
+	web: gunicorn projectname.wsgi --log-file -
+	example = web: gunicorn production_simulator.wsgi --log-file -
 		
 20. Copy url of your created app in Heroku
 
-21. In settings(django), cop this into ALLOWED_HOSTS
-	example = ALLOWED_HOSTS = ['productionsimulator.herokuapp.com', '127.0.0.1:8000'] 
+	URL_APP_HEROKU = '***'
+
+21. In super_secret_informations.py, add URL_APP_HEROKU to ALLOWED_HOSTS
+	example = ALLOWED_HOSTS = ['URL_APP_HEROKU'] 
 	
 22. Turn DEBUG to False
 
 23. Go to users->models->Profile-> comment def function
-	* create lambda function(AWS)
+
+	* create lambda function(AWS) if you want
 	
 24. In project on Heorku go to Settings->Add Buildpack->choose python
-
-25. Add this in setting:
-	STATIC_ROOT = os.path.join(BASE_DIR, 'staticfile')
-	
-26. Add this to MIDDLEWARE:
-	'whitenoise.middleware.WhiteNoiseMiddleware'
 	
 27. Create a private respository on Github
 
-28. Go to Github and push PRIVATE project
+28. Push project into PRIVATE respository
 
 29. Go to Heroku app->Deploy
+
 	Deployment method -> GitHub
+	
 	Connect to GitHub -> Find your app -> connect
+	
 	Manual deploy -> Deploy branch
 	
 30. Your app is runinng
