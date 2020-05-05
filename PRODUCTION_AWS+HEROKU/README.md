@@ -7,26 +7,32 @@
 
 	*Important Connectivity->Publicly accessible->set "Yes"
 	save:
+	
 	DB instance identifier = "***"
+	
 	Master username = "***"
+	
 	Master password = "***"
+	
 	Endpoint = "***.amazonaws.com"
+	
 	*save region it could be necessary to add it later in settings
-		region = Europe (London) "eu-west-2"
+	
+	region = Europe (London) "eu-west-2"
 2. Create server in PostgreSQL
 
 	Host name/address = Endpoint
+	
 	Username = Master username
+	
 	Password = Master password
+	
 	* IF YOU GOT ERROR-timeout expired or letter have any DB connection problems:
+	
 		DB->Security Groups->Inbound/Outbound rules edit->Type-PosgreSQL Source anywhere->save
-3. Run Create_DB_PostgreSQL populate DB with new connection
+3. Run Create_DB_PostgreSQL
 
-4. Connect to the DB in Django
-
-5. Run makemigrations, migrate, migrate erp fake, createsuperuser, runserver
-
-6. Create S3 bucket
+4. Create S3 bucket
 	Bucket name = "***"
 	Region = "***"
 	Go into bucket Permision->Cors Configuration paste this configuration and save:
