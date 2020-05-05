@@ -1,1 +1,0 @@
-web: gunicorn production_simulator.wsgi --log-file -
