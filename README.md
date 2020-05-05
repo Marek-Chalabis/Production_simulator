@@ -1,5 +1,5 @@
 # production_simulator(https://productionsimulator.herokuapp.com/)
-> Web application that allows to manage projects, employees and tools of production, it also allows to add information(posts) for others employees (project is offline due to the limits on AWS, if you want to see it LIVE let me know)
+> Web application that allows to manage projects, employees and tools of production, it also allows to add information(posts) for others employees (project maybe be offline due to the limits on AWS, if you want to see it LIVE let me know)
 
 ## Table of contents
 * [General info](#general-info)
@@ -21,14 +21,14 @@
 ### Project is separated into three major moduls;
 * Using Python to create a logical DB(PostgreSQL) for project
 * Using Django to display and handle interactions between DB and users
-* Make it live using Heroku+AWS
+* Make it live using Heroku + AWS
 
 ## Login details
 Login as admin:
 * username - admin
 * password - admin
 
-Or as any user created:PRODUCTION(AWS+HEROKU)->users_informations.txt
+Or as any user created:users_informations.txt
 
 ## Screenshots
 ![Employee](./img/employee.PNG)
