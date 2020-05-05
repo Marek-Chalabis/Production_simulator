@@ -64,21 +64,16 @@
 		
 	Secret access key = "***"
 	
-8. Establish connection in django, copy this lines:
+8. Establish connection in django (super_secret_informations, copy this lines:
 
 	AWS_ACCESS_KEY_ID = Access key ID
+	
 	AWS_SECRET_ACCESS_KEY = Secret access key
+	
 	AWS_STORAGE_BUCKET_NAME = Bucket name
-9. Add into INSTALLED_APPS(Django->settings):
-	'storages',
 	
-10. Add into setting:
-	(optional)AWS_S3_REGION_NAME = Region for example = "eu-west-2"
-	AWS_S3_FILE_OVERWRITE = False 
-	AWS_DEFAULT_ACL = None
-	DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage' 
-	STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage' 
-	
+9. "Uncomment" AMAZON S3 in settings:
+		
 11. Comment out save method in users->models->Profile
 
 12. Upload css/profile_images files into S3
@@ -88,13 +83,13 @@
 	
 14. Download GIT
 
-15. Set virtual environment for your project
-
 16. Pip install:
 	pip install django django-filter django-storages boto3 pillow gunicorn whitenoise
 	
 17. Set requirements.txt for Heroku, run terminal in yout virtual enviroment and run this commend:
+
 	pip freeze > requirements.txt
+	
 	* open requirements.txt and change:
 		requests==2.22.0 -> requests==2.23.0
 		if there is a lower version
