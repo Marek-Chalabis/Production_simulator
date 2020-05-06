@@ -1,4 +1,4 @@
-# Instructions for moving the database to aws, and deploy website on heroku  
+# Instructions for moving project to AWS RDS / AWS S3 / Heroku  
 
 1 Run this installations
 
