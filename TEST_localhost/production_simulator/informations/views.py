@@ -7,6 +7,8 @@ from django.db.models.functions import Concat
 from django.db.models import F, Value, CharField
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 # ==========query========
 query_information = ShowInformations.objects.select_related('author', 'author__profile').annotate(
         author_username=F('author__username'),
@@ -14,6 +16,23 @@ query_information = ShowInformations.objects.select_related('author', 'author__p
     .order_by('-date_posted')
 
 
+def cache_decorator_for_anonymous(decorator):
+    # keeps cached pages only for anonymous register ones see all the current changes
+
+    def _decorator(view):
+        # holds decorator for anonymous
+        decorated_view = decorator(view)
+        def _view(request, *args, **kwargs):
+            # If user is_anonymous
+            if request.user.is_anonymous:
+                return decorated_view(request, *args, **kwargs)  # view with @cache
+            else:
+                return view(request, *args, **kwargs)  # view without @cache
+        return _view
+    return _decorator
+
+
+@method_decorator(cache_decorator_for_anonymous(decorator=cache_page(60 * 60 * 12)), name='dispatch')
 class InformationsListView(ListView):
     queryset = query_information
     template_name = 'informations/informations.html'
@@ -21,6 +40,7 @@ class InformationsListView(ListView):
     paginate_by = 8
 
 
+@method_decorator(cache_decorator_for_anonymous(decorator=cache_page(60 * 60 * 12)), name='dispatch')
 class UserInformationsListView(ListView):
     template_name = 'informations/user_informations.html'
     context_object_name = 'posts'
