@@ -19,8 +19,8 @@ Token: d5c46c545a579513e88456bd8a85aee36e7a646f
 | [/api/v1/](#URIs_list)                             | Returns a list of links to the other available URIs | N/A                                   | N/A                               | N/A                                         |
 | [/api/get-token](#Token)                                 | N/A                            | Returns token for user                 | N/A                               | N/A                                         |
 | [/api/v1/informations/](#Informations)                                 | Returns a list of informations                           | Creates a new information                   | N/A                               | N/A                                         |
-| [/api/v1/informations/{id}](#Informations)                                 | Returns a information                           | N/A                   | Updates a information                               | Deletes a information                                        |N/A 
-| [/api/v1/informations/{id}/detail/](#Informations)                                 | Returns a more detailed  information                           |                    | N/A                               | N/A                                         |
+| [/api/v1/informations/{id}](#Informations)                                 | Returns a information                           |                    | Updates a information                               | Deletes a information                                        |N/A 
+| [/api/v1/informations/{id}/detail/](#Informations)                                 | Returns a more detailed  information                           |     N/A                | N/A                               | N/A                                         |
 
 
 
@@ -98,13 +98,15 @@ Returns informations about user.
 
 #### Single example: 
 
-```{
+```
+{
     "id": 1009,
     "author": 2,
     "title": "fdsfsf3ds2",
     "info": "fdsfsfs",
     "date_posted": "2020-05-16"
-}```
+}
+```
 
 > Permissible Fields
 
