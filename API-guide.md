@@ -19,7 +19,7 @@ Token: d5c46c545a579513e88456bd8a85aee36e7a646f
 | [/api/v1/](#URIs_list)                             | Returns a list of links to the other available URIs | N/A                                   | N/A                               | N/A                                         |
 | [/api/get-token](#Token)                                 | N/A                            | Returns token for user                 | N/A                               | N/A                                         |
 | [/api/v1/informations/](#Informations)                                 | Returns a list of informations                           | Creates a new information                   | N/A                               | N/A                                         |
-| [/api/v1/informations/{id}](#Informations)                                 | Returns a information                           |                    | Updates a information                               | Deletes a information                                        |N/A 
+| [/api/v1/informations/{id}](#Informations)                                 | Returns a information                           |   N/A                 | Updates a information                               | Deletes a information                                        |N/A 
 | [/api/v1/informations/{id}/detail/](#Informations)                                 | Returns a more detailed  information                           |     N/A                | N/A                               | N/A                                         |
 
 
@@ -108,7 +108,7 @@ Returns informations about user.
 }
 ```
 
-> Permissible Fields
+#### Permissible Fields
 
 | Element / Attribute     | PUT       | POST      |
 | ----------------------- | --------- | --------- |
@@ -118,7 +118,7 @@ Returns informations about user.
 | **info**             | Required   | Forbidden  |
 | **date_posted**              | Forbidden   | Forbidden  |
 
-> Sortable Fields
+#### Sortable Fields
 
 | Filter                | Type | lookups           | Description |
 | --------------------- | --|---------------- | ----------- |
@@ -137,151 +137,35 @@ Returns informations about user.
 | -------------------- |  ------------- |  --------- |-------- |
 | `/api/v1/informations/`  | Permission     | All      | Users   |
 
-#### GET
+> GET
 
 Returns list of Informations
 
-
-
 > POST
 
-Adds new Patient (date_of_register and registered_by are done automatically)
+Adds new Information 
 
-
-| Element / Attribute	 | Type         |Permission|
-| -------------------- |  ------------- |----------|
-|  first_name  |  String    |Required|
-|  last_name |   String   |Required|
-|   pesel|   Integer(BigIntegerField)   |Required|
-|   blood_group|   String(chocies: 0 Rh+, A Rh+, B Rh+, AB Rh+, 0 Rh-, A Rh-, B Rh-, AB Rh-)   |Required|
-|   gender|  String(chocies: male, female)    |Required|
-|   email|   String(EmailField)   |Allowed|
-|  phone_number |  Integer(PhoneNumberField)  *should start with Country calling code like: "+48"*    |Allowed|
-
-Example:
-
-`{
-    "first_name": "Testowy",
-    "last_name": "Testowicz",
-    "pesel": 12345678910,
-    "blood_group": "0 Rh+",
-    "gender": "male",
-    "email": "test@vp.pl",
-    "phone_number": "+48123456789",
-}`
-
-### Patient
-
-| URI                  | Method         |**GET**     |**PUT** |**DELETE** |
-| -------------------- |  ------------- |  --------- |-------- | ----------|
-| `/api/v1/patients/{id}`  | Permission     | Users      | Users   | Admin/staff|
+| URI                  | Method         |**GET** |**PUT**     |**DELETE** |
+| -------------------- |  ------------- |--------- |  --------- |-------- |
+| `/api/v1/informations/{id}`  | Permission     |All      | Users      | Users(creator)   |
 
 > GET
 
-Returns detaiil information about Patient with all of his/her donations and medical employee responsible for register, also there is added dynamic field which returns information if the Patient can donate.
+Return single Information
 
 > PUT
 
-Updates Patient.
-
-| Element / Attribute	 | Type         |Permission|
-| -------------------- |  ------------- |----------|
-|  first_name  |  String    |Required|
-|  last_name |   String   |Required|
-|   pesel|   Integer(BigIntegerField)   |Required|
-|   blood_group|   String(chocies: 0 Rh+, A Rh+, B Rh+, AB Rh+, 0 Rh-, A Rh-, B Rh-, B Rh-)   |Required|
-|   gender|  String(chocies: male, female)    |Required|
-|   email|   String(EmailField)   |Allowed|
-|  phone_number |  Integer(PhoneNumberField)  *should start with Country calling code like: "+48"*    |Allowed|
-
-Example:
-
-`{
-    "first_name": "ZMIANATestowy",
-    "last_name": "Testowicz",
-    "pesel": 12345678910,
-    "blood_group": "0 Rh+",
-    "gender": "male"
-}`
+Updates Information
 
 > DELETE
 
-Deletes Patient.
+Deletes Information
 
-### Donations_list
-
-| URI                  | Method         |**GET**     |**POST** |
-| -------------------- |  ------------- |  --------- |-------- |
-| `/api/v1/donations/`  | Permission     | Users      | Users   |
+| URI                  | Method         |**GET**     |
+| -------------------- |  ------------- |  --------- |
+| `/api/v1/informations/{id}/detail/`  | Permission     | Users      |
 
 > GET
 
-Returns list of Donations.
-
-| Filter                | lookups           | Description |
-| --------------------- | ---------------- | ----------- |
-| **id**                | in           | Django’s built-in lookup |
-| **medical_staff**         | in            | Django’s built-in lookup |
-| **patient**          | in          | Django’s built-in lookup |
-| **date_of_donation**            | exact, icontains, gt, gte, lt, lte, year, month, day          | Django’s built-in lookup |
-| **accept_donate**      | exact          | Django’s built-in lookup |
-| **refuse_information**      | icontains          | Django’s built-in lookup |
-| **fields**      | Selective fields          | Returns only selected fields |
-| **omit**      | Selective fields          | Returns all fields except omitted ones |
-| **page**      | Pagination          | Returns page |
-| **page_size**      | Pagination          | Returns number of records on page (default=250, max_page_size=2000 |
-
-Example: 
-
-`/api/v1/donations/?medical_staff=32,54,534,56,33,77,23,43&accept_donate=true`
-
-> POST
-
-Adds new Donation (date_of_donation and medical_staff are done automatically)
-
-
-| Element / Attribute	 | Type         |Permission|
-| -------------------- |  ------------- |----------|
-|   patient|   Integer(BigIntegerField)   |Required|
-|   accept_donate|  String(chocies: male, female)    |Required|
-|   refuse_information|   String(EmailField)   |Allowed|
-
-Example:
-
-`{
-    "accept_donate": "True",
-    "patient": 123
-}`
-
-### Donation
-
-| URI                  | Method         |**GET**     |**PUT** |**DELETE** |
-| -------------------- |  ------------- |  --------- |-------- | ----------|
-| `/api/v1/donations/{id}`  | Permission     | Users      | Admin/staff   | Admin/staff|
-
-> GET
-
-Returns detaiil information about Donation, patient and medical employee.
-
-> PUT
-
-Updates Donation.
-
-| Element / Attribute	 | Type         |Permission|
-| -------------------- |  ------------- |----------|
-|   patient|   Integer(BigIntegerField)   |Required|
-|   accept_donate|  String(chocies: male, female)    |Required|
-|   refuse_information|   String(EmailField)   |Allowed|
-
-Example:
-
-`{
-    "accept_donate": "False",
-    "patient": 123,
-    "refuse_information": "Because I say so"
-}`
-
-> DELETE
-
-Deletes Donation.
+Returns single Information with extra data about author
 
