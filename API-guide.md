@@ -1,5 +1,5 @@
 
-# REST API documentation
+# REST API documentation        !!!!!!!!!!!!! IN PRODUCTION THERE IS NO CODE YET OR ONLINE VERSION !!!!!!!!!!!!
 >  All endpoints explained
 
 ## Login
@@ -17,11 +17,12 @@ Token: d5c46c545a579513e88456bd8a85aee36e7a646f
 | URI                                              | GET                                                 | POST                                  | PUT                               | DELETE                                      |
 | ----------------------------------------------------- | --------------------------------------------------- | ------------------------------------- | --------------------------------- | ------------------------------------------- |
 | [/api/v1/](#URIs_list)                             | Returns a list of links to the other available URIs | N/A                                   | N/A                               | N/A                                         |
-| [/api/v1/public/](#Public)                                 | Returns informations about current state of bloods in all branches                           | N/A                   | N/A                               | N/A                                         |
-| [/api/v1/public/{branch}](#Branch)                                 | Returns informations about current state of bloods in branch                           | N/A                   | N/A                               | N/A                                         |
 | [/api/get-token](#Token)                                 | N/A                            | Returns token for user                 | N/A                               | N/A                                         |
-| [/api/v1/users/](#Users_list)                                 | Returns a list of users                           | N/A                   | N/A                               | N/A                                         |
-| [/api/v1/users/{id}](#User)                                 | Returns a user                           | N/A                   | N/A                               | N/A                                         |
+| [/api/v1/informations/](#Informations)                                 | Returns a list of informations                           | Creates a new information                   | N/A                               | N/A                                         |
+| [/api/v1/informations/{id}](#Informations)                                 | Returns a information                           | N/A                   | Updates a information                               | Deletes a information                                        |
+| [/api/v1/informations/{id}/detail/](#Informations)                                 | Returns a more detailed  information                           | Creates a new information                   | N/A                               | N/A                                         |
+
+
 | [/api/v1/patients/](#Patients_list)                                 | Returns a list of patients                           | Creates a new patient                  | N/A                               | N/A                                         |
 | [/api/v1/patients/{id}](#Patient)                                 | Returns the details of a single patient                           |  N/A                   | Updates a patient                               | Deletes a patient                                        |
 | [/api/v1/donations/](#Donations_list)                                 | Returns a list of donations                           | Creates a new donation                  | N/A                               | N/A                                         |
@@ -35,27 +36,6 @@ Token: d5c46c545a579513e88456bd8a85aee36e7a646f
 > GET
 
 Returns list of avalible URIs.
-
-### Public
-
-| URI | Method   |**GET** |
-| --- |  ------- |  ------- |
-| `/api/v1/public/`  | Permission |All      |
-
-> GET
-
-Returns informations about current state of bloods in all branches.
-
-### Branch
-
-| URI | Method   |**GET** |
-| --- |  ------- |  ------- |
-| `/api/v1/public/{branch}`  | Permission |All      |
-
-> GET
-
-Returns informations about current state of bloods in branch.
-
 
 ### Token
 
@@ -112,7 +92,7 @@ Example:
 
 Returns informations about user.
 
-### Patients_list
+### Informations
 
 | URI                  | Method         |**GET**     |**POST** |
 | -------------------- |  ------------- |  --------- |-------- |
