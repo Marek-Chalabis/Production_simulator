@@ -24,9 +24,6 @@ Token: d5c46c545a579513e88456bd8a85aee36e7a646f
 | [/api/v1/informations/{id}](#Informations)                                 | Returns a information                           |   N/A                 | Updates a information                               | Deletes a information                                        |N/A 
 | [/api/v1/informations/{id}/detail/](#Informations)                                 | Returns a more detailed  information                           |     N/A                | N/A                               | N/A                                         |
 
-
-
-
 ### URIs
 #### Single example: 
 
@@ -68,14 +65,6 @@ Returns list of avalible URIs.
 > POST
 
 Returns token for user.
-
-
-
-
-
-
-
-
 
 ### Users
 
@@ -119,8 +108,6 @@ Returns list of users with branch, position and image.
 
 Returns informations about user.
 
-
-
 ### Informations
 
 #### Single example: 
@@ -155,10 +142,10 @@ Returns informations about user.
 | **info**                |   String |exact, icontains            | Django’s built-in lookup |
 | **date_posted**                |Date    |exact, icontains, gt, gte, lt, lte, year, month, day           | Django’s built-in lookup |
 | **my**                |Boolean    |         | If my=True, returns all informations created by current user |
-| **fields**      | |Selective fields          | Returns only selected fields |
-| **omit**      | |Selective fields          | Returns all fields except omitted ones |
-| **page**      | |Pagination          | Returns page |
-| **page_size**      | |Pagination          | Returns number of records on page (default=100, max_page_size=1000 |
+| **fields**      | String|Selective fields          | Returns only selected fields |
+| **omit**      |String |Selective fields          | Returns all fields except omitted ones |
+| **page**      | Integer|Pagination          | Returns page |
+| **page_size**      | Integer|Pagination          | Returns number of records on page (default=100, max_page_size=1000 |
 
 | URI                  | Method         |**GET**     |**POST** |
 | -------------------- |  ------------- |  --------- |-------- |
