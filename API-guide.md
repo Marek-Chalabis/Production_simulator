@@ -16,8 +16,10 @@ Token: d5c46c545a579513e88456bd8a85aee36e7a646f
 
 | URI                                              | GET                                                 | POST                                  | PUT                               | DELETE                                      |
 | ----------------------------------------------------- | --------------------------------------------------- | ------------------------------------- | --------------------------------- | ------------------------------------------- |
-| [/api/v1/](#URIs_list)                             | Returns a list of links to the other available URIs | N/A                                   | N/A                               | N/A                                         |
+| [/api/v1/](#URIs list)                             | Returns a list of links to the other available URIs | N/A                                   | N/A                               | N/A                                         |
 | [/api/get-token](#Token)                                 | N/A                            | Returns token for user                 | N/A                               | N/A                                         |
+| [/api/v1/users/](#Users)                                 | Returns a list of users                           | N/A                   | N/A                               | N/A                                         |
+| [/api/v1/users/{id}](#Users)                                 | Returns a user                           | N/A                   | N/A                               | N/A                                         |
 | [/api/v1/informations/](#Informations)                                 | Returns a list of informations                           | Creates a new information                   | N/A                               | N/A                                         |
 | [/api/v1/informations/{id}](#Informations)                                 | Returns a information                           |   N/A                 | Updates a information                               | Deletes a information                                        |N/A 
 | [/api/v1/informations/{id}/detail/](#Informations)                                 | Returns a more detailed  information                           |     N/A                | N/A                               | N/A                                         |
@@ -25,7 +27,7 @@ Token: d5c46c545a579513e88456bd8a85aee36e7a646f
 
 
 
-### URIs_list
+### URIs list
 #### Single example: 
 
 ```
@@ -71,7 +73,35 @@ Returns token for user.
 
 
 
-### Users_list
+
+
+
+
+### Users
+
+#### Single example: 
+
+```
+{
+    "id": 2,
+    "username": "mwjxfqdgw",
+    "first_name": "Maxwell",
+    "last_name": "Mazurek",
+    "email": "gkhopldi@mail2uptown.com",
+    "branch": "Lublin",
+    "image": "http://127.0.0.1:8000/media/profile_image/1.jpg"
+}
+```
+
+#### Sortable Fields
+
+| Filter                | Type | lookups           | Description |
+| --------------------- | --|---------------- | ----------- |
+| **search**                | | SearchFilter           | Search given value in: username, last_name, email, position, branch  |
+| **fields**      | |Selective fields          | Returns only selected fields |
+| **omit**      | |Selective fields          | Returns all fields except omitted ones |
+| **page**      | |Pagination          | Returns page |
+| **page_size**      | |Pagination          | Returns number of records on page (default=50, max_page_size=500 |
 
 | URI                  | Method         |**GET**     |
 | -------------------- |  ------------- |  --------- |
@@ -81,20 +111,6 @@ Returns token for user.
 
 Returns list of users with branch, position and image.
 
-| Filter                | lookups           | Description |
-| --------------------- | ---------------- | ----------- |
-| **search**                | SearchFilter           | Search given value in: username, last_name, email, position, branch  |
-| **fields**      | Selective fields          | Returns only selected fields |
-| **omit**      | Selective fields          | Returns all fields except omitted ones |
-| **page**      | Pagination          | Returns page |
-| **page_size**      | Pagination          | Returns number of records on page (default=50, max_page_size=500 |
-
-Example: 
-
-`/api/v1/users/?search=da`
-
-### User
-
 | URI | Method   |**GET** |
 | --- |  ------- |  ------- |
 | `/api/v1/users/{id}`  | Permission |Users      |
@@ -102,8 +118,6 @@ Example:
 > GET
 
 Returns informations about user.
-
-
 
 
 
