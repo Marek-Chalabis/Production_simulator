@@ -100,33 +100,32 @@ Returns informations about user.
 
 | Element / Attribute     | PUT       | POST      |
 | ----------------------- | --------- | --------- |
-| `id`                    | Forbidden  | Forbidden |
-| `author`              | Forbidden   | Required  |
-| `title`          | Required   | Required  |
-| `info`             | Required   | Forbidden  |
-| `date_posted`              | Forbidden   | Forbidden  |
+| **id**                    | Forbidden  | Forbidden |
+| **author**              | Forbidden   | Required  |
+| **title**          | Required   | Required  |
+| **info**             | Required   | Forbidden  |
+| **date_posted**              | Forbidden   | Forbidden  |
 
 > Sortable Fields
 
 | Filter                | Type | lookups           | Description |
 | --------------------- | --|---------------- | ----------- |
-| **id**                | in           | Django’s built-in lookup |
-
-
-
+| **id**                |Integer    |exact, in         | Django’s built-in lookup |
+| **author**                | Integer   |exact, in           | Django’s built-in lookup |
+| **title**                |  String  |exact, icontains           | Django’s built-in lookup |
+| **info**                |   String |exact, icontains            | Django’s built-in lookup |
+| **date_posted**                |Date    |exact, icontains, gt, gte, lt, lte, year, month, day           | Django’s built-in lookup |
+| **my**                |Boolean    |         | If my=True, returns all informations created by current user |
+| **fields**      | |Selective fields          | Returns only selected fields |
+| **omit**      | |Selective fields          | Returns all fields except omitted ones |
+| **page**      | |Pagination          | Returns page |
+| **page_size**      | |Pagination          | Returns number of records on page (default=100, max_page_size=1000 |
 
 | URI                  | Method         |**GET**     |**POST** |
 | -------------------- |  ------------- |  --------- |-------- |
-| `/api/v1/patients/`  | Permission     | Users      | Users   |
+| `/api/v1/informations/`  | Permission     | All      | Users   |
 
-> Permissible Fields
-
-| Filter                | lookups           | Description |
-| --------------------- | ---------------- | ----------- |
-| **id**                | in           | Django’s built-in lookup |
-
-
-> GET
+#### GET
 
 Returns list of Patients with all of their donations and medical employee responsible for register, also there is added dynamic field which returns information if the current Patient can donate
 
