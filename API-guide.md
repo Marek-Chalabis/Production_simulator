@@ -26,6 +26,13 @@ Token: d5c46c545a579513e88456bd8a85aee36e7a646f
 
 
 ### URIs_list
+#### Single example: 
+
+```
+{
+    TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+}
+```
 
 | URI | Method   |**GET** |
 | --- |  ------- |  ------- |
@@ -37,26 +44,32 @@ Returns list of avalible URIs.
 
 ### Token
 
+#### Single example: 
+
+```
+{
+    "token": "dee9a966e4fe39abf1e59b9e950d28632e4454f6"
+}
+```
+
+#### Permissible Fields
+
+| Element / Attribute     | POST       |  
+| ----------------------- | --------- | 
+| **username**                    | Required  | 
+| **password**              | Required   |
+
 | URI | Method   |**POST** |
 | --- |  ------- |  ------- |
-| `/api/get-token`  | Permission |Users      |
+| `/api/get-token`  | Permission |All      |
 
 > POST
 
 Returns token for user.
 
-| Element / Attribute	 | Type         |Permission|
-| -------------------- |  ------------- |----------|
-|  username  |  String    |Required|
-|  password |   String   |Required|
 
 
-Example:
 
-`{
-    "username": "admin",
-    "password": "admin"
-}`
 
 ### Users_list
 
