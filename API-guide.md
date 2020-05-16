@@ -20,13 +20,11 @@ Token: d5c46c545a579513e88456bd8a85aee36e7a646f
 | [/api/get-token](#Token)                                 | N/A                            | Returns token for user                 | N/A                               | N/A                                         |
 | [/api/v1/informations/](#Informations)                                 | Returns a list of informations                           | Creates a new information                   | N/A                               | N/A                                         |
 | [/api/v1/informations/{id}](#Informations)                                 | Returns a information                           | N/A                   | Updates a information                               | Deletes a information                                        |
-| [/api/v1/informations/{id}/detail/](#Informations)                                 | Returns a more detailed  information                           | Creates a new information                   | N/A                               | N/A                                         |
+| [/api/v1/informations/{id}/detail/](#Informations)                                 | Returns a more detailed  information                           |                    | N/A                               | N/A                                         |
 
 
-| [/api/v1/patients/](#Patients_list)                                 | Returns a list of patients                           | Creates a new patient                  | N/A                               | N/A                                         |
-| [/api/v1/patients/{id}](#Patient)                                 | Returns the details of a single patient                           |  N/A                   | Updates a patient                               | Deletes a patient                                        |
-| [/api/v1/donations/](#Donations_list)                                 | Returns a list of donations                           | Creates a new donation                  | N/A                               | N/A                                         |
-| [/api/v1/donations/{id}](#Donation)                                 | Returns the details of a single donation                           |  N/A                   | Updates a donation                               | Deletes a donation                                        |
+
+
 ### URIs_list
 
 | URI | Method   |**GET** |
@@ -92,11 +90,41 @@ Example:
 
 Returns informations about user.
 
+
+
+
+
 ### Informations
+
+> Permissible Fields
+
+| Element / Attribute     | PUT       | POST      |
+| ----------------------- | --------- | --------- |
+| `id`                    | Forbidden  | Forbidden |
+| `author`              | Forbidden   | Required  |
+| `title`          | Required   | Required  |
+| `info`             | Required   | Forbidden  |
+| `date_posted`              | Forbidden   | Forbidden  |
+
+> Sortable Fields
+
+| Filter                | Type | lookups           | Description |
+| --------------------- | --|---------------- | ----------- |
+| **id**                | in           | Django’s built-in lookup |
+
+
+
 
 | URI                  | Method         |**GET**     |**POST** |
 | -------------------- |  ------------- |  --------- |-------- |
 | `/api/v1/patients/`  | Permission     | Users      | Users   |
+
+> Permissible Fields
+
+| Filter                | lookups           | Description |
+| --------------------- | ---------------- | ----------- |
+| **id**                | in           | Django’s built-in lookup |
+
 
 > GET
 
