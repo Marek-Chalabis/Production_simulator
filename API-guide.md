@@ -16,7 +16,7 @@ Token: d5c46c545a579513e88456bd8a85aee36e7a646f
 
 | URI                                              | GET                                                 | POST                                  | PUT                               | DELETE                                      |
 | ----------------------------------------------------- | --------------------------------------------------- | ------------------------------------- | --------------------------------- | ------------------------------------------- |
-| [/api/v1/](#URIs list)                             | Returns a list of links to the other available URIs | N/A                                   | N/A                               | N/A                                         |
+| [/api/v1/](#URIs)                             | Returns a list of links to the other available URIs | N/A                                   | N/A                               | N/A                                         |
 | [/api/get-token](#Token)                                 | N/A                            | Returns token for user                 | N/A                               | N/A                                         |
 | [/api/v1/users/](#Users)                                 | Returns a list of users                           | N/A                   | N/A                               | N/A                                         |
 | [/api/v1/users/{id}](#Users)                                 | Returns a user                           | N/A                   | N/A                               | N/A                                         |
@@ -27,7 +27,7 @@ Token: d5c46c545a579513e88456bd8a85aee36e7a646f
 
 
 
-### URIs list
+### URIs
 #### Single example: 
 
 ```
