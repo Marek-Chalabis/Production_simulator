@@ -97,11 +97,11 @@ Returns token for user.
 
 | Filter                | Type | lookups           | Description |
 | --------------------- | --|---------------- | ----------- |
-| **search**                | | SearchFilter           | Search given value in: username, last_name, email, position, branch  |
-| **fields**      | |Selective fields          | Returns only selected fields |
-| **omit**      | |Selective fields          | Returns all fields except omitted ones |
-| **page**      | |Pagination          | Returns page |
-| **page_size**      | |Pagination          | Returns number of records on page (default=50, max_page_size=500 |
+| **search**                | String| SearchFilter           | Search given value in: username, last_name, email, position, branch  |
+| **fields**      | String|Selective fields          | Returns only selected fields |
+| **omit**      | String|Selective fields          | Returns all fields except omitted ones |
+| **page**      |Integer |Pagination          | Returns page |
+| **page_size**      | Integer|Pagination          | Returns number of records on page (default=50, max_page_size=500 |
 
 | URI                  | Method         |**GET**     |
 | -------------------- |  ------------- |  --------- |
