@@ -19,7 +19,7 @@ Token: d5c46c545a579513e88456bd8a85aee36e7a646f
 | [/api/v1/](#URIs_list)                             | Returns a list of links to the other available URIs | N/A                                   | N/A                               | N/A                                         |
 | [/api/get-token](#Token)                                 | N/A                            | Returns token for user                 | N/A                               | N/A                                         |
 | [/api/v1/informations/](#Informations)                                 | Returns a list of informations                           | Creates a new information                   | N/A                               | N/A                                         |
-| [/api/v1/informations/{id}](#Informations)                                 | Returns a information                           | N/A                   | Updates a information                               | Deletes a information                                        |
+| [/api/v1/informations/{id}](#Informations)                                 | Returns a information                           | N/A                   | Updates a information                               | Deletes a information                                        |N/A 
 | [/api/v1/informations/{id}/detail/](#Informations)                                 | Returns a more detailed  information                           |                    | N/A                               | N/A                                         |
 
 
@@ -96,6 +96,16 @@ Returns informations about user.
 
 ### Informations
 
+#### Single example: 
+
+```{
+    "id": 1009,
+    "author": 2,
+    "title": "fdsfsf3ds2",
+    "info": "fdsfsfs",
+    "date_posted": "2020-05-16"
+}```
+
 > Permissible Fields
 
 | Element / Attribute     | PUT       | POST      |
@@ -127,30 +137,9 @@ Returns informations about user.
 
 #### GET
 
-Returns list of Patients with all of their donations and medical employee responsible for register, also there is added dynamic field which returns information if the current Patient can donate
+Returns list of Informations
 
-| Filter                | lookups           | Description |
-| --------------------- | ---------------- | ----------- |
-| **id**                | in           | Django’s built-in lookup |
-| **first_name**          | exact, icontains           | Django’s built-in lookup |
-| **last_name**         | exact, icontains           | Django’s built-in lookup |
-| **pesel**          | exact, icontains           | Django’s built-in lookup |
-| **blood_group**            | exact, icontains          | Django’s built-in lookup |
-| **gender**      | exact          | Django’s built-in lookup |
-| **email**      | exact, icontains          | Django’s built-in lookup |
-| **phone_number**      | exact, icontains          | Django’s built-in lookup |
-| **date_of_register**      | exact, icontains, gt, gte, lt, lte, year, month, day          | Django’s built-in lookup |
-| **can_donate**      | exact          | Django’s built-in lookup |
-| **registered_by**      | in          | Django’s built-in lookup |
-| **search**      | icontains          | Search given value in: first_name, last_name, pesel, email, phone_number   |
-| **fields**      | Selective fields          | Returns only selected fields |
-| **omit**      | Selective fields          | Returns all fields except omitted ones |
-| **page**      | Pagination          | Returns page |
-| **page_size**      | Pagination          | Returns number of records on page (default=200, max_page_size=1000 |
 
-Example: 
-
-`/api/v1/patients/?page_size=100&can_donate=true&date_of_register__gte=1990-09-26&omit=registered_by&first_name__icontains=Vit`
 
 > POST
 
