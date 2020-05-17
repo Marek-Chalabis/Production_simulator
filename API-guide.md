@@ -249,7 +249,7 @@ Returns single Information with extra data about author
 | **fields**      | String|Selective fields          | Returns only selected fields |
 | **omit**      |String |Selective fields          | Returns all fields except omitted ones |
 | **page**      | Integer|Pagination          | Returns page |
-| **page_size**      | Integer|Pagination          | Returns number of records on page (default=300, max_page_size=3000 |
+| **page_size**      | Integer|Pagination          | Returns number of records on page (default=200, max_page_size=2000 |
  
 
 | URI                  | Method         |**GET**     |**POST** |
