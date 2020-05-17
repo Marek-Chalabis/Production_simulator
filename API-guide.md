@@ -22,12 +22,11 @@ Token: d5c46c545a579513e88456bd8a85aee36e7a646f
 | [/api/v1/users/{id}](#Users)                                 | Returns a user                           | N/A                   | N/A                               | N/A                                         |
 | [/api/v1/informations/](#Informations)                                 | Returns a list of informations                           | Creates a new information                   | N/A                               | N/A                                         |
 | [/api/v1/informations/{id}](#Informations)                                 | Returns a information                           |   N/A                 | Updates a information                               | Deletes a information                                        |N/A 
-| [/api/v1/informations/{id}/detail/](#Informations)                                 | Returns a more detailed  information                           |     N/A                | N/A                               | N/A                                         |
+| [/api/v1/informations/{id}/detail/](#Informations)                                 | Returns a more detailed data of information                           |     N/A                | N/A                               | N/A                                         |
 | [/api/v1/tools/](#Tools)                                 | Returns a list of tools                           | Creates a new tool                   | N/A                               | N/A                                         |
 | [/api/v1/tools/{id}](#Tools)                                 | Returns a tool                           |   N/A                 | Updates a tool                               | Deletes a tool                                        |N/A 
+| [/api/v1/tools/{id}/detail/](#Tools)                                 | Returns a more detailed data of tool                           |     N/A                | N/A                               | N/A                                         |
 
-
-| [/api/v1/informations/{id}/detail/](#Informations)                                 | Returns a more detailed  information                           |     N/A                | N/A                               | N/A                                         |
 ### URIs
 #### Single example: 
 
@@ -215,20 +214,19 @@ Returns single Information with extra data about author
 | Element / Attribute     | PUT       | POST      |
 | ----------------------- | --------- | --------- |
 | **id**                    | Forbidden  | Forbidden |
-| **geometry**              | Forbidden   | Required  |
+| **geometry**              | Required   | Required  |
 | **material**          | Required   | Required  |
 | **diameter_mm**             | Required   | Required  |
-| **shank_diameter_mm**              | Forbidden   | Allowed  |
-| **tool_radius_mm**              | Forbidden   | Allowed  |
-| **compensation_mm**              | Forbidden   | Allowed  |
-| **tool_length_mm**              | Forbidden   | Allowed  |
-| **working_part_length_mm**              | Forbidden   | Allowed  |
-| **producer**              | Forbidden   | Allowed  |
-| **status**              | Forbidden   | Allowed  |
-| **price**              | Forbidden   | Required  |
-| **producer**              | Forbidden   | Allowed  |
+| **shank_diameter_mm**              | Allowed   | Allowed  |
+| **tool_radius_mm**              | Allowed   | Allowed  |
+| **compensation_mm**              | Allowed   | Allowed  |
+| **tool_length_mm**              | Allowed   | Allowed  |
+| **working_part_length_mm**              | Allowed   | Allowed  |
+| **producer**              | Allowed   | Allowed  |
+| **status**              | Allowed   | Allowed  |
+| **price**              | Required   | Required  |
+| **producer**              | Allowed   | Allowed  |
 | **date_of_purchase**              | Forbidden   | Forbidden  |
-| **date_of_purchase**              | Forbidden   | Allowed  |
 
 #### Sortable Fields
 
@@ -284,9 +282,9 @@ Deletes Tool
 
 | URI                  | Method         |**GET**     |
 | -------------------- |  ------------- |  --------- |
-| `/api/v1/informations/{id}/detail/`  | Permission     | Users      |
+| `/api/v1/tools/{id}/detail/`  | Permission     | Users      |
 
 > GET
 
-Returns single Information with extra data about author
+Returns single Tool with extra data about project and producer
 
