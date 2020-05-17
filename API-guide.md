@@ -26,6 +26,13 @@ Token: d5c46c545a579513e88456bd8a85aee36e7a646f
 | [/api/v1/tools/](#Tools)                                 | Returns a list of tools                           | Creates a new tool                   | N/A                               | N/A                                         |
 | [/api/v1/tools/{id}](#Tools)                                 | Returns a tool                           |   N/A                 | Updates a tool                               | Deletes a tool                                        |N/A 
 | [/api/v1/tools/{id}/detail/](#Tools)                                 | Returns a more detailed data of tool                           |     N/A                | N/A                               | N/A                                         |
+| [/api/v1/projects/](#Projects)                                 | Returns a list of projects                           | Creates a new project                   | N/A                               | N/A                                         |
+
+
+
+
+| [/api/v1/tools/{id}](#Tools)                                 | Returns a tool                           |   N/A                 | Updates a tool                               | Deletes a tool                                        |N/A 
+| [/api/v1/tools/{id}/detail/](#Tools)                                 | Returns a more detailed data of tool                           |     N/A                | N/A                               | N/A                                         |
 
 ### URIs
 #### Single example: 
@@ -287,4 +294,97 @@ Deletes Tool
 > GET
 
 Returns single Tool with extra data about project and producer
+
+### Projects
+
+#### Single example: 
+
+```
+{
+    "project_id": 43,
+    "project_name": "Soax ",
+    "time_for_project_hours": "135.00",
+    "profit": "47029.00",
+    "employees": [
+        "fd4a8baf-b10a-453c-8cc9-c5da58629a03",
+        "287ca1af-8db9-48af-b1ef-225fb7082dde",
+        ...
+        "c8dcdc49-ddcc-46fa-829a-d6769ff9e2ce",
+        "de281243-c1e0-47d9-a55d-dfbb0d4f7b7d"
+    ]
+}
+```
+
+#### Permissible Fields
+
+| Element / Attribute     | PUT       | POST      |
+| ----------------------- | --------- | --------- |
+| **project_id**                    | Forbidden  | Forbidden |
+| **project_name**              | Required   | Required  |
+| **time_for_project_hours**          | Required   | Allowed  |
+| **profit**             | Required   | Required  |
+| **employees**              | Allowed   | Allowed  |
+| **tools**              | Allowed   | Allowed  |
+
+
+#### Sortable Fields
+
+| Filter                | Type | lookups           | Description |
+| --------------------- | --|---------------- | ----------- |
+| **tool_id**                | Integer   |    exact, in    |Django’s built-in lookup  |
+| **geometry**                | String   |    exact, icontains    |Django’s built-in lookup  |
+| **material**                | String   |    exact, icontains    |Django’s built-in lookup  |
+| **diameter_mm**                | Float    |    exact, icontains, gt, gte, lt, lte, range    |Django’s built-in lookup  |
+| **shank_diameter_mm**                | Float    |    exact, icontains, gt, gte, lt, lte, range      |Django’s built-in lookup  |
+| **tool_radius_mm**                | Float   |    exact, icontains, gt, gte, lt, lte, range    |Django’s built-in lookup  |
+| **tool_length_mm**                | Float   |    exact, icontains, gt, gte, lt, lte, range    |Django’s built-in lookup  |
+| **working_part_length_mm**                | Float   |    exact, icontains, gt, gte, lt, lte, range    |Django’s built-in lookup  |
+| **compensation_mm**                | Float   |    exact, icontains, gt, gte, lt, lte, range    |Django’s built-in lookup  |
+| **producer**                | Integer   |    exact, in    |Django’s built-in lookup  |
+| **status**                | String   |    exact, icontains    |Django’s built-in lookup  |
+| **price**                | ddd   |    exact, icontains, gt, gte, lt, lte, range     |Django’s built-in lookup  |
+| **date_of_purchase**                | Date   |    exact, icontains, gt, gte, lt, lte, year, month, day     |Django’s built-in lookup |
+| **project**                | Integer   |    exact, in    |Django’s built-in lookup  |
+| **fields**      | String|Selective fields          | Returns only selected fields |
+| **omit**      |String |Selective fields          | Returns all fields except omitted ones |
+| **page**      | Integer|Pagination          | Returns page |
+| **page_size**      | Integer|Pagination          | Returns number of records on page (default=200, max_page_size=2000 |
+ 
+
+| URI                  | Method         |**GET**     |**POST** |
+| -------------------- |  ------------- |  --------- |-------- |
+| `[/api/v1/tools/`  | Permission     | All      | Users   |
+
+> GET
+
+Returns list of Tools
+
+> POST
+
+Adds new Tool 
+
+| URI                  | Method         |**GET** |**PUT**     |**DELETE** |
+| -------------------- |  ------------- |--------- |  --------- |-------- |
+| `/api/v1/tools/{id}`  | Permission     |Users      | Users      | Users   |
+
+> GET
+
+Return single Tool
+
+> PUT
+
+Updates Tool
+
+> DELETE
+
+Deletes Tool
+
+| URI                  | Method         |**GET**     |
+| -------------------- |  ------------- |  --------- |
+| `/api/v1/tools/{id}/detail/`  | Permission     | Users      |
+
+> GET
+
+Returns single Tool with extra data about project and producer
+
 
