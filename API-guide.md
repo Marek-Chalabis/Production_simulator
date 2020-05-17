@@ -23,7 +23,11 @@ Token: d5c46c545a579513e88456bd8a85aee36e7a646f
 | [/api/v1/informations/](#Informations)                                 | Returns a list of informations                           | Creates a new information                   | N/A                               | N/A                                         |
 | [/api/v1/informations/{id}](#Informations)                                 | Returns a information                           |   N/A                 | Updates a information                               | Deletes a information                                        |N/A 
 | [/api/v1/informations/{id}/detail/](#Informations)                                 | Returns a more detailed  information                           |     N/A                | N/A                               | N/A                                         |
+| [/api/v1/tools/](#Tools)                                 | Returns a list of tools                           | Creates a new tool                   | N/A                               | N/A                                         |
+| [/api/v1/tools/{id}](#Tools)                                 | Returns a tool                           |   N/A                 | Updates a tool                               | Deletes a tool                                        |N/A 
 
+
+| [/api/v1/informations/{id}/detail/](#Informations)                                 | Returns a more detailed  information                           |     N/A                | N/A                               | N/A                                         |
 ### URIs
 #### Single example: 
 
@@ -174,6 +178,109 @@ Updates Information
 > DELETE
 
 Deletes Information
+
+| URI                  | Method         |**GET**     |
+| -------------------- |  ------------- |  --------- |
+| `/api/v1/informations/{id}/detail/`  | Permission     | Users      |
+
+> GET
+
+Returns single Information with extra data about author
+
+### Tools
+
+#### Single example: 
+
+```
+{
+    "tool_id": 1309,
+    "geometry": "Ball",
+    "material": "HSS",
+    "diameter_mm": "14.80",
+    "shank_diameter_mm": "15.0",
+    "tool_radius_mm": "7.40",
+    "tool_length_mm": "70.00",
+    "working_part_length_mm": "50.0",
+    "compensation_mm": 0.47,
+    "producer": 3,
+    "status": "Utilize the tool",
+    "price": "47.50",
+    "date_of_purchase": "2019-08-22",
+    "project": 63
+}
+```
+
+#### Permissible Fields !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!PUT!!!!!!!!!!!!!!!!!!!!!!!
+
+| Element / Attribute     | PUT       | POST      |
+| ----------------------- | --------- | --------- |
+| **id**                    | Forbidden  | Forbidden |
+| **geometry**              | Forbidden   | Required  |
+| **material**          | Required   | Required  |
+| **diameter_mm**             | Required   | Required  |
+| **shank_diameter_mm**              | Forbidden   | Allowed  |
+| **tool_radius_mm**              | Forbidden   | Allowed  |
+| **compensation_mm**              | Forbidden   | Allowed  |
+| **tool_length_mm**              | Forbidden   | Allowed  |
+| **working_part_length_mm**              | Forbidden   | Allowed  |
+| **producer**              | Forbidden   | Allowed  |
+| **status**              | Forbidden   | Allowed  |
+| **price**              | Forbidden   | Required  |
+| **producer**              | Forbidden   | Allowed  |
+| **date_of_purchase**              | Forbidden   | Forbidden  |
+| **date_of_purchase**              | Forbidden   | Allowed  |
+
+#### Sortable Fields
+
+| Filter                | Type | lookups           | Description |
+| --------------------- | --|---------------- | ----------- |
+| **tool_id**                | Integer   |    exact, in    |Django’s built-in lookup  |
+| **geometry**                | String   |    exact, icontains    |Django’s built-in lookup  |
+| **material**                | String   |    exact, icontains    |Django’s built-in lookup  |
+| **diameter_mm**                | Float    |    exact, icontains, gt, gte, lt, lte, range    |Django’s built-in lookup  |
+| **shank_diameter_mm**                | Float    |    exact, icontains, gt, gte, lt, lte, range      |Django’s built-in lookup  |
+| **tool_radius_mm**                | Float   |    exact, icontains, gt, gte, lt, lte, range    |Django’s built-in lookup  |
+| **tool_length_mm**                | Float   |    exact, icontains, gt, gte, lt, lte, range    |Django’s built-in lookup  |
+| **working_part_length_mm**                | Float   |    exact, icontains, gt, gte, lt, lte, range    |Django’s built-in lookup  |
+| **compensation_mm**                | Float   |    exact, icontains, gt, gte, lt, lte, range    |Django’s built-in lookup  |
+| **producer**                | Integer   |    exact, in    |Django’s built-in lookup  |
+| **status**                | String   |    exact, icontains    |Django’s built-in lookup  |
+| **price**                | ddd   |    exact, icontains, gt, gte, lt, lte, range     |Django’s built-in lookup  |
+| **date_of_purchase**                | Date   |    exact, icontains, gt, gte, lt, lte, year, month, day     |Django’s built-in lookup |
+| **project**                | Integer   |    exact, in    |Django’s built-in lookup  |
+| **fields**      | String|Selective fields          | Returns only selected fields |
+| **omit**      |String |Selective fields          | Returns all fields except omitted ones |
+| **page**      | Integer|Pagination          | Returns page |
+| **page_size**      | Integer|Pagination          | Returns number of records on page (default=300, max_page_size=3000 |
+ 
+
+| URI                  | Method         |**GET**     |**POST** |
+| -------------------- |  ------------- |  --------- |-------- |
+| `[/api/v1/tools/`  | Permission     | All      | Users   |
+
+> GET
+
+Returns list of Tools
+
+> POST
+
+Adds new Tool 
+
+| URI                  | Method         |**GET** |**PUT**     |**DELETE** |
+| -------------------- |  ------------- |--------- |  --------- |-------- |
+| `/api/v1/tools/{id}`  | Permission     |Users      | Users      | Users   |
+
+> GET
+
+Return single Tool
+
+> PUT
+
+Updates Tool
+
+> DELETE
+
+Deletes Tool
 
 | URI                  | Method         |**GET**     |
 | -------------------- |  ------------- |  --------- |
