@@ -209,7 +209,7 @@ Returns single Information with extra data about author
 }
 ```
 
-#### Permissible Fields !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!PUT!!!!!!!!!!!!!!!!!!!!!!!
+#### Permissible Fields
 
 | Element / Attribute     | PUT       | POST      |
 | ----------------------- | --------- | --------- |
