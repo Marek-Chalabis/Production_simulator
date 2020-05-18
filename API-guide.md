@@ -109,7 +109,7 @@ Returns token for user.
 
 > GET
 
-Returns list of users with branch, position and image.
+Returns list of users with branch and image.
 
 | URI | Method   |**GET** |
 | --- |  ------- |  ------- |
