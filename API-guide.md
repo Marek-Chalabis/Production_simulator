@@ -137,11 +137,11 @@ Returns informations about user.
 
 | Element / Attribute     | PUT       | POST      |
 | ----------------------- | --------- | --------- |
-| **id**                    | Forbidden  | Forbidden |
-| **author**              | Forbidden   | Required  |
-| **title**          | Required   | Required  |
-| **info**             | Required   | Forbidden  |
-| **date_posted**              | Forbidden   | Forbidden  |
+| **id**                  | Forbidden | Forbidden |
+| **author**              | Forbidden | Required  |
+| **title**               | Required  | Required  |
+| **info**                | Required  | Required  |
+| **date_posted**         | Forbidden | Forbidden |
 
 #### Sortable Fields
 
