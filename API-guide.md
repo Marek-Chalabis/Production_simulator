@@ -151,7 +151,7 @@ Returns informations about user.
 | **author**                | Integer   |exact, in           | Django’s built-in lookup |
 | **title**                |  String  |exact, icontains           | Django’s built-in lookup |
 | **info**                |   String |exact, icontains            | Django’s built-in lookup |
-| **date_posted**                |Date    |exact, icontains, gt, gte, lt, lte, year, month, day           | Django’s built-in lookup |
+| **date_posted**                |Date    |exact, icontains, gt, gte, lt, lte, year, month, day, range           | Django’s built-in lookup |
 | **my**                |Boolean    |         | If my=True, returns all informations created by current user |
 | **fields**      | String|Selective fields          | Returns only selected fields |
 | **omit**      |String |Selective fields          | Returns all fields except omitted ones |
