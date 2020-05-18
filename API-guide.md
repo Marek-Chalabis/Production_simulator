@@ -12,6 +12,8 @@ password: admin
 
 Token: d5c46c545a579513e88456bd8a85aee36e7a646f
 
+!!! There are some 
+
 ## Endpoints
 
 | URI                                              | GET                                                 | POST                                  | PUT                               | DELETE                                      |
@@ -27,12 +29,8 @@ Token: d5c46c545a579513e88456bd8a85aee36e7a646f
 | [/api/v1/tools/{id}](#Tools)                                 | Returns a tool                           |   N/A                 | Updates a tool                               | Deletes a tool                                        |N/A 
 | [/api/v1/tools/{id}/detail/](#Tools)                                 | Returns a more detailed data of tool                           |     N/A                | N/A                               | N/A                                         |
 | [/api/v1/projects/](#Projects)                                 | Returns a list of projects                           | Creates a new project                   | N/A                               | N/A                                         |
-
-
-
-
-| [/api/v1/tools/{id}](#Tools)                                 | Returns a tool                           |   N/A                 | Updates a tool                               | Deletes a tool                                        |N/A 
-| [/api/v1/tools/{id}/detail/](#Tools)                                 | Returns a more detailed data of tool                           |     N/A                | N/A                               | N/A                                         |
+| [/api/v1/projects/{id}](#Projects)                                 | Returns a project                           |   N/A                 | Updates a project                               | Deletes a project                                        |N/A 
+| [/api/v1/projects/{id}/detail/](#Projects)                                 | Returns a more detailed data of project                           |     N/A                | N/A                               | N/A                                         |
 
 ### URIs
 #### Single example: 
@@ -311,6 +309,10 @@ Returns single Tool with extra data about project and producer
         ...
         "c8dcdc49-ddcc-46fa-829a-d6769ff9e2ce",
         "de281243-c1e0-47d9-a55d-dfbb0d4f7b7d"
+    ],
+    "tools": [
+        974,
+        1100
     ]
 }
 ```
@@ -324,67 +326,57 @@ Returns single Tool with extra data about project and producer
 | **time_for_project_hours**          | Required   | Allowed  |
 | **profit**             | Required   | Required  |
 | **employees**              | Allowed   | Allowed  |
-| **tools**              | Allowed   | Allowed  |
+| **tools_id**              | Forbidden   | Allowed  |
 
 
 #### Sortable Fields
 
 | Filter                | Type | lookups           | Description |
 | --------------------- | --|---------------- | ----------- |
-| **tool_id**                | Integer   |    exact, in    |Django’s built-in lookup  |
-| **geometry**                | String   |    exact, icontains    |Django’s built-in lookup  |
-| **material**                | String   |    exact, icontains    |Django’s built-in lookup  |
-| **diameter_mm**                | Float    |    exact, icontains, gt, gte, lt, lte, range    |Django’s built-in lookup  |
-| **shank_diameter_mm**                | Float    |    exact, icontains, gt, gte, lt, lte, range      |Django’s built-in lookup  |
-| **tool_radius_mm**                | Float   |    exact, icontains, gt, gte, lt, lte, range    |Django’s built-in lookup  |
-| **tool_length_mm**                | Float   |    exact, icontains, gt, gte, lt, lte, range    |Django’s built-in lookup  |
-| **working_part_length_mm**                | Float   |    exact, icontains, gt, gte, lt, lte, range    |Django’s built-in lookup  |
-| **compensation_mm**                | Float   |    exact, icontains, gt, gte, lt, lte, range    |Django’s built-in lookup  |
-| **producer**                | Integer   |    exact, in    |Django’s built-in lookup  |
-| **status**                | String   |    exact, icontains    |Django’s built-in lookup  |
-| **price**                | ddd   |    exact, icontains, gt, gte, lt, lte, range     |Django’s built-in lookup  |
-| **date_of_purchase**                | Date   |    exact, icontains, gt, gte, lt, lte, year, month, day     |Django’s built-in lookup |
-| **project**                | Integer   |    exact, in    |Django’s built-in lookup  |
+| **project_id**                | Integer   |    exact, in    |Django’s built-in lookup  |
+| **project_name**                | String   |    exact, icontains    |Django’s built-in lookup  |
+| **time_for_project_hours**                | Float   |    exact, icontains, gt, gte, lt, lte, range    |Django’s built-in lookup  |
+| **profit**                | Float    |    exact, icontains, gt, gte, lt, lte, range    |Django’s built-in lookup  |
+| **employees**                | UUID    |    exact    |Django’s built-in lookup  |
 | **fields**      | String|Selective fields          | Returns only selected fields |
 | **omit**      |String |Selective fields          | Returns all fields except omitted ones |
 | **page**      | Integer|Pagination          | Returns page |
-| **page_size**      | Integer|Pagination          | Returns number of records on page (default=200, max_page_size=2000 |
- 
+| **page_size**      | Integer|Pagination          | Returns number of records on page (default=10, max_page_size=50 |
 
 | URI                  | Method         |**GET**     |**POST** |
 | -------------------- |  ------------- |  --------- |-------- |
-| `[/api/v1/tools/`  | Permission     | All      | Users   |
+| `/api/v1/projects/`  | Permission     | Users      | Users   |
 
 > GET
 
-Returns list of Tools
+Returns list of Projects
 
 > POST
 
-Adds new Tool 
+Adds new Project 
 
 | URI                  | Method         |**GET** |**PUT**     |**DELETE** |
 | -------------------- |  ------------- |--------- |  --------- |-------- |
-| `/api/v1/tools/{id}`  | Permission     |Users      | Users      | Users   |
+| `/api/v1/projects/{id}`  | Permission     |Users      | Users      | Users   |
 
 > GET
 
-Return single Tool
+Return single Project
 
 > PUT
 
-Updates Tool
+Updates Project
 
 > DELETE
 
-Deletes Tool
+Deletes Project
 
 | URI                  | Method         |**GET**     |
 | -------------------- |  ------------- |  --------- |
-| `/api/v1/tools/{id}/detail/`  | Permission     | Users      |
+| `/api/v1/projects/{id}/detail/`  | Permission     | Users      |
 
 > GET
 
-Returns single Tool with extra data about project and producer
+Returns single Project with extra data about tools and employees
 
 
