@@ -31,6 +31,9 @@ Token: d5c46c545a579513e88456bd8a85aee36e7a646f
 | [/api/v1/projects/](#Projects)                                 | Returns a list of projects                           | Creates a new project                   | N/A                               | N/A                                         |
 | [/api/v1/projects/{id}](#Projects)                                 | Returns a project                           |   N/A                 | Updates a project                               | Deletes a project                                        |N/A 
 | [/api/v1/projects/{id}/detail/](#Projects)                                 | Returns a more detailed data of project                           |     N/A                | N/A                               | N/A                                         |
+| [/api/v1/employees/](#Employees)                                 | Returns a list of employees                           | Creates a new employee                   | N/A                               | N/A                                         |
+| [/api/v1/employees/{uuid}](#Employees)                                 | Returns a employee                           |   N/A                 | Updates a employee                               | Deletes a employee                                        |N/A 
+| [/api/v1/employees/{uuid}/detail/](#Employees)                                 | Returns a more detailed data of employee                           |     N/A                | N/A                               | N/A                                         |
 
 ### URIs
 #### Single example: 
@@ -314,6 +317,87 @@ Returns single Tool with extra data about project and producer
         974,
         1100
     ]
+}
+```
+
+#### Permissible Fields
+
+| Element / Attribute     | PUT       | POST      |
+| ----------------------- | --------- | --------- |
+| **project_id**                    | Forbidden  | Forbidden |
+| **project_name**              | Required   | Required  |
+| **time_for_project_hours**          | Required   | Allowed  |
+| **profit**             | Required   | Required  |
+| **employees**              | Allowed   | Allowed  |
+| **tools_id**              | Forbidden   | Allowed  |
+
+
+#### Sortable Fields
+
+| Filter                | Type | lookups           | Description |
+| --------------------- | --|---------------- | ----------- |
+| **project_id**                | Integer   |    exact, in    |Django’s built-in lookup  |
+| **project_name**                | String   |    exact, icontains    |Django’s built-in lookup  |
+| **time_for_project_hours**                | Float   |    exact, icontains, gt, gte, lt, lte, range    |Django’s built-in lookup  |
+| **profit**                | Float    |    exact, icontains, gt, gte, lt, lte, range    |Django’s built-in lookup  |
+| **employees**                | UUID    |    exact    |Django’s built-in lookup  |
+| **fields**      | String|Selective fields          | Returns only selected fields |
+| **omit**      |String |Selective fields          | Returns all fields except omitted ones |
+| **page**      | Integer|Pagination          | Returns page |
+| **page_size**      | Integer|Pagination          | Returns number of records on page (default=10, max_page_size=50 |
+
+| URI                  | Method         |**GET**     |**POST** |
+| -------------------- |  ------------- |  --------- |-------- |
+| `/api/v1/projects/`  | Permission     | Users      | Users   |
+
+> GET
+
+Returns list of Projects
+
+> POST
+
+Adds new Project 
+
+| URI                  | Method         |**GET** |**PUT**     |**DELETE** |
+| -------------------- |  ------------- |--------- |  --------- |-------- |
+| `/api/v1/projects/{id}`  | Permission     |Users      | Users      | Users   |
+
+> GET
+
+Return single Project
+
+> PUT
+
+Updates Project
+
+> DELETE
+
+Deletes Project
+
+| URI                  | Method         |**GET**     |
+| -------------------- |  ------------- |  --------- |
+| `/api/v1/projects/{id}/detail/`  | Permission     | Users      |
+
+> GET
+
+Returns single Project with extra data about tools and employees
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+### Employees
+
+#### Single example: 
+
+```
+{
+    "uuid_employee": "0b2807ac-1129-4a3d-bc7f-0e0771ee8652",
+    "first_name": "Maxymilian",
+    "last_name": "Adamczyk",
+    "email": "eamjabytyohxrsp@ivillage.com",
+    "phone_number": "+48664818336",
+    "date_of_employment": "2001-04-07",
+    "position": {
+        "position_id": 1,
+        "position_name": "Junior - operator",
+        "hourly_rate": 20.0
 }
 ```
 
