@@ -25,7 +25,7 @@ Login as admin:
 * username - admin
 * password - admin
 
-Or as any user created -> users_informations.txt
+Or as any user created -> [users_informations.txt](users_informations.txt)
 
 ## Screenshots
 ![Employee](./img/employee.PNG)
