@@ -503,49 +503,44 @@ Returns single Employee with extra data about projects that he/she is in
 | Filter                | Type | lookups           | Description |
 | --------------------- | --|---------------- | ----------- |
 | **search**                |String | SearchFilter           | Search given value in: producer_name, contact_person, email, phone_number  |
-| **ordering**                |    |     order_by    | Can order by: dproducer_id, rabat, delivery_time_days  |
+| **ordering**                |    |     order_by    | Can order by: dproducer_id, rabat  |
 | **fields**      | String|Selective fields          | Returns only selected fields |
 | **omit**      |String |Selective fields          | Returns all fields except omitted ones |
 | **page**      | Integer|Pagination          | Returns page |
 | **page_size**      | Integer|Pagination          | Returns number of records on page (default=10, max_page_size=50 |
 
-
-
-
-
-
 | URI                  | Method         |**GET**     |**POST** |
 | -------------------- |  ------------- |  --------- |-------- |
-| `/api/v1/employees/`  | Permission     | Users      | Users   |
+| `/api/v1/producers/`  | Permission     | Users      | Users   |
 
 > GET
 
-Returns list of Employee
+Returns list of Producers
 
 > POST
 
-Adds new Employee 
+Adds new Producer 
 
 | URI                  | Method         |**GET** |**PUT**     |**DELETE** |
 | -------------------- |  ------------- |--------- |  --------- |-------- |
-| `/api/v1/employees/{uuid}`  | Permission     |Users      | Users      | Users   |
+| `/api/v1/producers/{uuid}`  | Permission     |Users      | Users      | Users   |
 
 > GET
 
-Return single Employee
+Return single Producer
 
 > PUT
 
-Updates Employee
+Updates Producer
 
 > DELETE
 
-Deletes Employee
+Deletes Producer
 
 | URI                  | Method         |**GET**     |
 | -------------------- |  ------------- |  --------- |
-| `/api/v1/employees/{uuid}/detail/`  | Permission     | Users      |
+| `/api/v1/producers/{id}/detail/`  | Permission     | Users      |
 
 > GET
 
-Returns single Employee with extra data about projects that he/she is in
+Returns single Producer with list of tools provided by him/her
