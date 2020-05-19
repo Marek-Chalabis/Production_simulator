@@ -253,10 +253,10 @@ Deletes Information
 | **compensation_mm**                | Float   |    exact, icontains, gt, gte, lt, lte, range    |Django’s built-in lookup  |
 | **producer**                | Integer   |    exact, in    |Django’s built-in lookup  |
 | **status**                | String   |    exact, icontains    |Django’s built-in lookup  |
-| **price**                | ddd   |    exact, icontains, gt, gte, lt, lte, range     |Django’s built-in lookup  |
+| **price**                | Float   |    exact, icontains, gt, gte, lt, lte, range     |Django’s built-in lookup  |
 | **date_of_purchase**                | Date   |    exact, icontains, gt, gte, lt, lte, year, month, day, range     |Django’s built-in lookup |
 | **project**                | Integer   |    exact, in    |Django’s built-in lookup  |
-| **ordering**                |    |     order_by    | Can order by: tool_id, diameter_mm, shank_diameter_mm, tool_radius_mm, tool_length_mm, working_part_length_mm, compensation_mm, price, date_of_purchase  |
+| **ordering**                |  String  |     order_by    | Can order by: tool_id, diameter_mm, shank_diameter_mm, tool_radius_mm, tool_length_mm, working_part_length_mm, compensation_mm, price, date_of_purchase  |
 | **fields**      | String|Selective fields          | Returns only selected fields |
 | **omit**      |String |Selective fields          | Returns all fields except omitted ones |
 | **page**      | Integer|Pagination          | Returns page |
@@ -265,7 +265,7 @@ Deletes Information
 
 | URI                  | Method         |**GET**     |**POST** |
 | -------------------- |  ------------- |  --------- |-------- |
-| `[/api/v1/tools/`  | Permission     | All      | Users   |
+| `[/api/v1/tools/`  | Permission     | Users      | Users   |
 
 > GET
 
