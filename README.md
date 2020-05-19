@@ -58,7 +58,7 @@ Or as any user created -> [users_informations.txt](users_informations.txt)
 highly ENCOURAGE you to create your own database, it is a large part of the project)
 
 ### AWS + Heroku
-* For instructions to deploy it on AWS go to -> [AWS_HEROKU.md](AWS_HEROKU.md)
+* For instructions to deploy it on AWS go to -> [AWS_HEROKU_instructions.md](AWS_HEROKU_instructions.md)
 
 ## Features
 List of features:
