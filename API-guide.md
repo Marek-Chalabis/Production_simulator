@@ -58,7 +58,7 @@ Token: d5c46c545a579513e88456bd8a85aee36e7a646f
 
 > GET
 
-Returns list of avalible URIs.
+Returns set of avalible URLs.
 
 ### Token
 
