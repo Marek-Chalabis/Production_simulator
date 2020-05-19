@@ -33,8 +33,12 @@ Token: d5c46c545a579513e88456bd8a85aee36e7a646f
 | [/api/v1/employees/](#Employees)                                 | Returns a list of employees                           | Creates a new employee                   | N/A                               | N/A                                         |
 | [/api/v1/employees/{uuid}](#Employees)                                 | Returns a employee                           |   N/A                 | Updates a employee                               | Deletes a employee                                        |N/A 
 | [/api/v1/employees/{uuid}/detail/](#Employees)                                 | Returns a more detailed data of employee                           |     N/A                | N/A                               | N/A                                         |
+| [/api/v1/producers/](#Producers)                                 | Returns a list of producers                           | Creates a new producer                   | N/A                               | N/A                                         |
+| [/api/v1/producers/{id}](#Producers)                                 | Returns a producer                           |   N/A                 | Updates a producer                               | Deletes a producer                                        |N/A 
+| [/api/v1/producers/{id}/detail/](#Producers)                                 | Returns a more detailed data of producer                           |     N/A                | N/A                               | N/A                                         |
 
 ### URIs
+
 #### Single example: 
 
 ```
@@ -408,9 +412,6 @@ Returns single Project with extra data about tools and employees
 | **date_of_employment**              | Forbidden   | Forbidden  |
 | **position**              | Allowed   | Allowed  |
 
-
-
-
 #### Sortable Fields
 
 | Filter                | Type | lookups           | Description |
@@ -465,3 +466,86 @@ Deletes Employee
 Returns single Employee with extra data about projects that he/she is in
 
 
+
+
+
+
+### Producers
+
+#### Single example: 
+
+```
+{
+    "producer_id": 5,
+    "producer_name": "Ceratizit",
+    "contact_person": "Petra Zalewska",
+    "phone_number": "+48567557587",
+    "email": "cywfesjxzal@ttml.co.in",
+    "rabat": "23.10",
+    "delivery_time_days": "4-9"
+}
+```
+
+#### Permissible Fields
+
+| Element / Attribute     | PUT       | POST      |
+| ----------------------- | --------- | --------- |
+| **producer_id**                    | Forbidden  | Forbidden |
+| **producer_name**              | Required   | Required  |
+| **contact_person**          | Required   | Required  |
+| **phone_number**             | Allowed   | Allowed  |
+| **email**              | Allowed   | Allowed  |
+| **rabat**              | Required   | Required  |
+| **delivery_time_days**              | Allowed   | Allowed  |
+
+#### Sortable Fields
+
+| Filter                | Type | lookups           | Description |
+| --------------------- | --|---------------- | ----------- |
+| **search**                |String | SearchFilter           | Search given value in: producer_name, contact_person, email, phone_number  |
+| **ordering**                |    |     order_by    | Can order by: dproducer_id, rabat, delivery_time_days  |
+| **fields**      | String|Selective fields          | Returns only selected fields |
+| **omit**      |String |Selective fields          | Returns all fields except omitted ones |
+| **page**      | Integer|Pagination          | Returns page |
+| **page_size**      | Integer|Pagination          | Returns number of records on page (default=10, max_page_size=50 |
+
+
+
+
+
+
+| URI                  | Method         |**GET**     |**POST** |
+| -------------------- |  ------------- |  --------- |-------- |
+| `/api/v1/employees/`  | Permission     | Users      | Users   |
+
+> GET
+
+Returns list of Employee
+
+> POST
+
+Adds new Employee 
+
+| URI                  | Method         |**GET** |**PUT**     |**DELETE** |
+| -------------------- |  ------------- |--------- |  --------- |-------- |
+| `/api/v1/employees/{uuid}`  | Permission     |Users      | Users      | Users   |
+
+> GET
+
+Return single Employee
+
+> PUT
+
+Updates Employee
+
+> DELETE
+
+Deletes Employee
+
+| URI                  | Method         |**GET**     |
+| -------------------- |  ------------- |  --------- |
+| `/api/v1/employees/{uuid}/detail/`  | Permission     | Users      |
+
+> GET
+
+Returns single Employee with extra data about projects that he/she is in
