@@ -376,7 +376,7 @@ Deletes Project
 > GET
 
 Returns single Project with extra data about tools and employees
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 ### Employees
 
 #### Single example: 
@@ -400,62 +400,68 @@ Returns single Project with extra data about tools and employees
 
 | Element / Attribute     | PUT       | POST      |
 | ----------------------- | --------- | --------- |
-| **project_id**                    | Forbidden  | Forbidden |
-| **project_name**              | Required   | Required  |
-| **time_for_project_hours**          | Required   | Allowed  |
-| **profit**             | Required   | Required  |
-| **employees**              | Allowed   | Allowed  |
-| **tools_id**              | Forbidden   | Allowed  |
+| **uuid_employee**                    | Forbidden  | Forbidden |
+| **first_name**              | Required   | Required  |
+| **last_name**          | Required   | Required  |
+| **email**             | Allowed   | Allowed  |
+| **phone_number**              | Allowed   | Allowed  |
+| **date_of_employment**              | Forbidden   | Forbidden  |
+| **position**              | Allowed   | Allowed  |
+
+
 
 
 #### Sortable Fields
 
 | Filter                | Type | lookups           | Description |
 | --------------------- | --|---------------- | ----------- |
-| **project_id**                | Integer   |    exact, in    |Django’s built-in lookup  |
-| **project_name**                | String   |    exact, icontains    |Django’s built-in lookup  |
-| **time_for_project_hours**                | Float   |    exact, icontains, gt, gte, lt, lte, range    |Django’s built-in lookup  |
-| **profit**                | Float    |    exact, icontains, gt, gte, lt, lte, range    |Django’s built-in lookup  |
-| **employees**                | UUID    |    exact    |Django’s built-in lookup  |
+| **employees**                | UUID   |    exact    |Django’s built-in lookup  |
+| **first_name**                | String   |    exact, icontains    |Django’s built-in lookup  |
+| **last_name**                | String   |   exact, icontains    |Django’s built-in lookup  |
+| **email**                | String    |    exact, icontains     |Django’s built-in lookup  |
+| **phone_number**                | String    |    exact, icontains   |Django’s built-in lookup  |
+| **date_of_employment**                | Date    |    exact, icontains, gt, gte, lt, lte, year, month, day, range    |Django’s built-in lookup  |
+| **position**                | Integer    |    exact, in     |Django’s built-in lookup  |
+| **ordering**                |    |     order_by    | Can order by: date_of_employment, position  |
 | **fields**      | String|Selective fields          | Returns only selected fields |
 | **omit**      |String |Selective fields          | Returns all fields except omitted ones |
 | **page**      | Integer|Pagination          | Returns page |
-| **page_size**      | Integer|Pagination          | Returns number of records on page (default=10, max_page_size=50 |
+| **page_size**      | Integer|Pagination          | Returns number of records on page (default=100, max_page_size=1000 |
 
 | URI                  | Method         |**GET**     |**POST** |
 | -------------------- |  ------------- |  --------- |-------- |
-| `/api/v1/projects/`  | Permission     | Users      | Users   |
+| `/api/v1/employees/`  | Permission     | Users      | Users   |
 
 > GET
 
-Returns list of Projects
+Returns list of Employee
 
 > POST
 
-Adds new Project 
+Adds new Employee 
 
 | URI                  | Method         |**GET** |**PUT**     |**DELETE** |
 | -------------------- |  ------------- |--------- |  --------- |-------- |
-| `/api/v1/projects/{id}`  | Permission     |Users      | Users      | Users   |
+| `/api/v1/employees/{uuid}`  | Permission     |Users      | Users      | Users   |
 
 > GET
 
-Return single Project
+Return single Employee
 
 > PUT
 
-Updates Project
+Updates Employee
 
 > DELETE
 
-Deletes Project
+Deletes Employee
 
 | URI                  | Method         |**GET**     |
 | -------------------- |  ------------- |  --------- |
-| `/api/v1/projects/{id}/detail/`  | Permission     | Users      |
+| `/api/v1/employees/{uuid}/detail/`  | Permission     | Users      |
 
 > GET
 
-Returns single Project with extra data about tools and employees
+Returns single Employee with extra data about projects that he/she is in
 
 
