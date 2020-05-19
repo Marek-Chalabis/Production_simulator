@@ -146,7 +146,7 @@ Returns informations about user with branch and image.
 | Element / Attribute     | PUT       | POST      |
 | ----------------------- | --------- | --------- |
 | **id**                  | Forbidden | Forbidden |
-| **author**              | Forbidden | Required  |
+| **author**              | Forbidden | Forbidden |
 | **title**               | Required  | Required  |
 | **info**                | Required  | Required  |
 | **date_posted**         | Forbidden | Forbidden |
@@ -160,9 +160,9 @@ Returns informations about user with branch and image.
 | **title**                |  String  |exact, icontains           | Django’s built-in lookup |
 | **info**                |   String |exact, icontains            | Django’s built-in lookup |
 | **date_posted**                |Date    |exact, icontains, gt, gte, lt, lte, year, month, day, range           | Django’s built-in lookup |
-| **my**                |Boolean    |         | If my=True, returns all informations created by current user |
-| **ordering**                |    |     order_by    | Can order by: author, id, date_posted  |
-| **search**                | | SearchFilter           | Search given value in: title, info  |
+| **my**                |Boolean    |   custom      | If my=True, returns all informations created by current user |
+| **ordering**                | String   |     order_by    | Can order by: author, id, date_posted  |
+| **search**                | String| SearchFilter           | Search given value in: title, info  |
 | **fields**      | String|Selective fields          | Returns only selected fields |
 | **omit**      |String |Selective fields          | Returns all fields except omitted ones |
 | **page**      | Integer|Pagination          | Returns page |
