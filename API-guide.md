@@ -18,7 +18,7 @@ Token: d5c46c545a579513e88456bd8a85aee36e7a646f
 
 | URI                                              | GET                                                 | POST                                  | PUT                               | DELETE                                      |
 | ----------------------------------------------------- | --------------------------------------------------- | ------------------------------------- | --------------------------------- | ------------------------------------------- |
-| [/api/v1/](#URIs)                             | Returns a list of links to the other available URIs | N/A                                   | N/A                               | N/A                                         |
+| [/api/v1/](#URLs)                             | Returns set of URLs | N/A                                   | N/A                               | N/A                                         |
 | [/api/get-token](#Token)                                 | N/A                            | Returns token for user                 | N/A                               | N/A                                         |
 | [/api/v1/users/](#Users)                                 | Returns a list of users                           | N/A                   | N/A                               | N/A                                         |
 | [/api/v1/users/{id}](#Users)                                 | Returns a user                           | N/A                   | N/A                               | N/A                                         |
@@ -37,13 +37,18 @@ Token: d5c46c545a579513e88456bd8a85aee36e7a646f
 | [/api/v1/producers/{id}](#Producers)                                 | Returns a producer                           |   N/A                 | Updates a producer                               | Deletes a producer                                        |N/A 
 | [/api/v1/producers/{id}/detail/](#Producers)                                 | Returns a more detailed data of producer                           |     N/A                | N/A                               | N/A                                         |
 
-### URIs
+### URLs
 
 #### Single example: 
 
 ```
 {
-    TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    "users": "http://127.0.0.1:8000/api/v1/users/",
+    "informations": "http://127.0.0.1:8000/api/v1/informations/",
+    "tools": "http://127.0.0.1:8000/api/v1/tools/",
+    "projects": "http://127.0.0.1:8000/api/v1/projects/",
+    "employees": "http://127.0.0.1:8000/api/v1/employees/",
+    "producers": "http://127.0.0.1:8000/api/v1/producers/"
 }
 ```
 
