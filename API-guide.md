@@ -1,5 +1,5 @@
 
-# REST API documentation        !!!!!!!!!!!!! IN PRODUCTION THERE IS NO CODE YET OR ONLINE VERSION !!!!!!!!!!!!
+# REST API documentation
 >  All endpoints explained
 
 ## Login
@@ -10,9 +10,13 @@ login: admin
 
 password: admin
 
-Token: d5c46c545a579513e88456bd8a85aee36e7a646f
+Token: 9f48c04891191596323c448ae24af79824b4b4c4
 
-!!! There are some 
+or as user -> [users_informations.txt](users_informations.txt)
+
+Random token from User -> Token: 7d6a5ca494efb8b2de99b1019d8dc2ffeeec2a82
+
+*there is diffrent permisions for user or staff
 
 ## Endpoints
 
