@@ -1,14 +1,19 @@
-from django.shortcuts import get_object_or_404
-from .models import Tools, Projects, Employees, Producers
-from .forms import CreateProject
-from .filters import ToolsFilter, ProjectsFilter, EmployeesFilter, ProducersFilter
-from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.mixins import LoginRequiredMixin
+import math
+
 from django.contrib import messages
-from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Count, F, CharField, Value, DecimalField, ExpressionWrapper
 from django.db.models.functions import Concat
-import math
+from django.shortcuts import get_object_or_404
+from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)
+
+from .filters import ToolsFilter, ProjectsFilter, EmployeesFilter, ProducersFilter
+from .forms import CreateProject
+from .models import Tools, Projects, Employees, Producers
+
+
+
 
 
 class ToolsListView(LoginRequiredMixin, SuccessMessageMixin, ListView):
@@ -54,22 +59,14 @@ class ToolsCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
               'project']
     success_message = "Tool was created successfully"
 
-    def form_valid(self, form):
-        # allows to override the form
-        form.instance.shank_diameter_mm = math.ceil(form.instance.diameter_mm)
-        form.instance.compensation_mm = 0
-        form.instance.status = 'Can be use'
-        if form.instance.geometry == 'Square':
-            form.instance.tool_radius_mm = 0
-        elif form.instance.geometry == 'Ball':
-            form.instance.tool_radius_mm = form.instance.diameter_mm / 2
-        return super().form_valid(form)
-
 
 class ToolsUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Tools
     template_name = 'tools/tools_update_form.html'
-    fields = '__all__'
+    fields = [
+            'geometry', 'material', 'diameter_mm', 'shank_diameter_mm', 'tool_radius_mm',
+            'tool_length_mm', 'working_part_length_mm', 'compensation_mm',  'producer',
+            'status', 'price', 'project']
     success_message = "Tool was updated successfully"
     template_name_suffix = '_update_form'
 
@@ -77,7 +74,7 @@ class ToolsUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 class ToolsDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Tools
     template_name = 'tools/tools_confirm_delete.html'
-    success_url = '/ERP/tools/'
+    success_url = '/erp/tools/'
     success_message = 'Tool was deleted'
 
     def delete(self, request, *args, **kwargs):
@@ -131,7 +128,7 @@ class ProjectsDetailView(LoginRequiredMixin, SuccessMessageMixin, DetailView):
 
 
 class ProjectsCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-    model = Projects
+    queryset = Projects.objects.select_related('position').prefetch_related('employees', 'employees__position')
     template_name = 'projects/projects_form.html'
     form_class = CreateProject
     success_message = "Project was created successfully"
@@ -158,6 +155,7 @@ class ProjectsUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         # adds tools to project (outside model)
         tools_for_project = form.cleaned_data.get('add_tools_to_project')
         self.object = form.save()
+
         for tool in tools_for_project:
             tool_update = Tools.objects.get(tool_id=tool.tool_id)
             tool_update.project = self.object
@@ -169,7 +167,7 @@ class ProjectsDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     # delete function
     model = Projects
     template_name = 'projects/projects_confirm_delete.html'
-    success_url = '/ERP/projects/'
+    success_url = '/erp/projects/'
     success_message = 'Project was deleted'
 
     def delete(self, request, *args, **kwargs):
@@ -222,16 +220,21 @@ class EmployeesCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     fields = ['first_name',
               'last_name',
               'email',
-              'give_phone_number',
-              'position',
-              'date_of_employment']
+              'phone_number',
+              'position'
+              ]
     success_message = "Employee added"
 
 
 class EmployeesUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Employees
     template_name = 'employees/employees_update_form.html'
-    fields = '__all__'
+    fields = ['first_name',
+              'last_name',
+              'email',
+              'phone_number',
+              'position'
+              ]
     success_message = "Employee was updated successfully"
     template_name_suffix = '_update_form'
 
@@ -239,7 +242,7 @@ class EmployeesUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 class EmployeesDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Employees
     template_name = 'employees/employees_confirm_delete.html'
-    success_url = '/ERP/employees/'
+    success_url = '/erp/employees/'
     success_message = 'Employee was deleted'
 
     def delete(self, request, *args, **kwargs):
@@ -285,7 +288,7 @@ class ProducersUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 class ProducersDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Producers
     template_name = 'producers/producers_confirm_delete.html'
-    success_url = '/ERP/producers/'
+    success_url = '/erp/producers/'
     success_message = 'Producer was deleted'
 
     def delete(self, request, *args, **kwargs):

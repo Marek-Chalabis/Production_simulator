@@ -11,7 +11,6 @@
 {% endblock %}
 
 {% block results %}
-    {% cache 3600 projects %}
         <div>
             <table class="table table-sm">
                 <tbody>
@@ -36,7 +35,6 @@
                 </tbody>
             </table>
         </div>
-    {% endcache %}
 {% endblock %}
 
 {% block right %}

@@ -3,9 +3,9 @@ SECRET_KEY = '14z7s_bd1h&-_6hsb6u(ptc9u3*vzs+(84^19j4!sxz&&7^nxg'
 ALLOWED_HOSTS = []
 
 
-NAME = 'production_simulator_DB'
+NAME = 'production_simulator_db'
 USER = 'postgres'
-PASSWORD = 'admin'
+PASSWORD = '***'
 HOST = 'localhost'
 
 EMAIL_HOST_USER = '***'

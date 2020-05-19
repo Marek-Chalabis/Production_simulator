@@ -1,5 +1,4 @@
 import os
-import psycopg2
 from . import super_secret_informations
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -32,7 +31,10 @@ INSTALLED_APPS = [
     'django_filters',
     'bootstrapform',
     'phonenumber_field',
-    'debug_toolbar'
+    'debug_toolbar',
+    'rest_framework',
+    'api',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -151,7 +153,7 @@ INTERNAL_IPS = [
 ]
 # True to unable toolbar
 DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK': lambda r: False,  # disables it
+    'SHOW_TOOLBAR_CALLBACK': lambda r: False,
 }
 # phonenumber format
 PHONENUMBER_DB_FORMAT = 'E164'
@@ -162,6 +164,23 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',   # saves caches in DB
         'LOCATION': 'cache_table'  # DB table for caches
     }
+}
+
+# REST API
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '200/day',
+        'user': '200/hour'
+    },
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.OrderingFilter',
+        'rest_framework.filters.SearchFilter',
+    ],
 }
 
 '''

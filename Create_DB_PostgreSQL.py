@@ -26,7 +26,7 @@ HOST = 'localhost'
 USER = 'postgres'
 PASSWORD = 'admin'
 PORT = '5432'
-NAME_DB = 'production_simulator_DB'
+NAME_DB = 'production_simulator_db'
 # True - NAME_DB will be recreated (DROP and CREATE) False - DB already exists
 DB_RESET = True
 
@@ -220,7 +220,7 @@ class Producers:
                             INSERT INTO {}(
                             producer_name,
                             contact_person,
-                            give_phone_number,
+                            phone_number,
                             email,
                             rabat,
                             delivery_time_days) 
@@ -245,7 +245,7 @@ class Producers:
             contact_person = '{}',
             rabat = {},
             delivery_time_days = {} 
-            WHERE producer_id = 1;'''.format(Producers.table_producer_name,
+            WHERE producer_id  = 1;'''.format(Producers.table_producer_name,
                                              'Foreman',
                                              0,
                                              0))
@@ -259,7 +259,7 @@ class Producers:
                   producer_id SERIAL NOT NULL PRIMARY KEY,
                   producer_name VARCHAR(30) UNIQUE NOT NULL,
                   contact_person VARCHAR(50) NOT NULL,
-                  give_phone_number VARCHAR(50) NOT NULL,
+                  phone_number VARCHAR(50) NOT NULL,
                   email VARCHAR(50),
                   rabat NUMERIC(4, 2) NOT NULL,
                   delivery_time_days VARCHAR(15) NOT NULL
@@ -307,8 +307,8 @@ class Projects:
                                     self.time_for_project,
                                     self.profit))
             con.commit()
-        cur.execute('''UPDATE {} SET project_name = '{}', 
-        time_for_project_hours = 0, profit=0 WHERE project_id = 1;'''.format(Projects.table_projects_name, MAGAZINE))
+        cur.execute('''UPDATE {} SET project_name  = '{}', 
+        time_for_project_hours = 0, profit=0 WHERE project_id  = 1;'''.format(Projects.table_projects_name, MAGAZINE))
         con.commit()
 
     @classmethod
@@ -338,7 +338,7 @@ class Employees:
             first_name, last_name = RandomInformation.give_name_and_last_name()
             cur.execute('''INSERT INTO {}(
                         first_name, last_name,
-                        email, give_phone_number,
+                        email, phone_number,
                         position_id, date_of_employment)
                         VALUES (
                         '{}', '{}',
@@ -366,7 +366,7 @@ class Employees:
                     first_name VARCHAR(30) NOT NULL,
                     last_name VARCHAR(30) NOT NULL,
                     email VARCHAR(50),
-                    give_phone_number VARCHAR(30),
+                    phone_number VARCHAR(30),
                     position_id SERIAL NOT NULL,
                     date_of_employment DATE NOT NULL           
                     );'''.format(cls.table_name_emploees))
@@ -398,7 +398,7 @@ class Position:
         # create table
         cur.execute('''DROP TABLE IF EXISTS {};'''.format(cls.table_name_positions))
         cur.execute('''CREATE TABLE {} (
-                    position_id SERIAL,
+                    position_id  SERIAL,
                     position_name VARCHAR(30) NOT NULL UNIQUE,
                     hourly_rate FLOAT NOT NULL           
                     );'''.format(cls.table_name_positions))
@@ -442,7 +442,7 @@ class EmployeesInProject:
         # create table
         cur.execute('''DROP TABLE IF EXISTS {};'''.format(cls.table_name_employees_projects))
         cur.execute('''CREATE TABLE {} (
-                    connection_id BIGSERIAL NOT NULL PRIMARY KEY,            
+                    connection_id  BIGSERIAL NOT NULL PRIMARY KEY,            
                     uuid_employee uuid NOT NULL,
                     project_id SERIAL NOT NULL         
                     );'''.format(cls.table_name_employees_projects))
@@ -537,9 +537,9 @@ class RandomInformation:
         for i in range(number):
             word_length = random.randint(1, 15)
             letters = string.ascii_lowercase
-            word = ''.join(random.choice(letters) for i in range(word_length))
+            word = ''.join(random.choice(letters) for _ in range(word_length))
             expresion += word + ' '
-        return expresion
+        return expresion[:-1]
 
     @staticmethod
     def give_password(password_length):
@@ -615,7 +615,7 @@ class RandomInformation:
         # create random "word" for email address
         name_length = random.randint(5, 15)
         letters = string.ascii_lowercase
-        return ''.join(random.choice(letters) for i in range(name_length))
+        return ''.join(random.choice(letters) for _ in range(name_length))
 
 
 class CreateUsers:
@@ -751,8 +751,6 @@ def connect_to_db(host, user, password, port, name_db):
     # create connection to PostgreSQL
     # create new DB NAME_DB
     # CONNECTION NEEDS TO BE CLOSED OUTSIDE
-    global con
-    global cur
 
     try:
         if DB_RESET:
@@ -766,6 +764,7 @@ def connect_to_db(host, user, password, port, name_db):
             cur = con.cursor()
             con.set_isolation_level(0)
             cur.execute('DROP DATABASE IF EXISTS {}'.format(name_db))
+            con.commit()
             cur.execute('''CREATE DATABASE {}
                         WITH
                         OWNER = postgres
@@ -783,6 +782,7 @@ def connect_to_db(host, user, password, port, name_db):
         )
         con.set_isolation_level(0)
         cur = con.cursor()
+        return con, cur
     except:
         print('There is something wrong with connection, check your variable: HOST, USER, PASSWORD, PORT'
               '\n Or your DB_RESET=True and blocks actions')
@@ -790,7 +790,7 @@ def connect_to_db(host, user, password, port, name_db):
 
 def populate_db():
 
-    connect_to_db(HOST, USER, PASSWORD, PORT, NAME_DB)
+    con, cur = connect_to_db(HOST, USER, PASSWORD, PORT, NAME_DB)
 
     with MeasureTime('Creating tools took:'):
         CreateTool(NUMBER_OF_TOOLS)
@@ -806,14 +806,15 @@ def populate_db():
 
 def list_of_active_users():
     # returns list of active users
-    connect_to_db(HOST, USER, PASSWORD, PORT, NAME_DB)
+
+    con, cur = connect_to_db(HOST, USER, PASSWORD, PORT, NAME_DB)
+
     cur.execute('SELECT id FROM auth_user')
     users = cur.fetchall()
     list_of_active_users = []
 
     for row in users:
         list_of_active_users.append(row[0])
-    con.close()
     return list_of_active_users
 
 
@@ -839,7 +840,7 @@ def create_json_file():
 def create_informations_db(number_of_inf):
     # adds informations(posts) to DB thru PostgreSQL
     list_of_users = list_of_active_users()
-    connect_to_db(HOST, USER, PASSWORD, PORT, NAME_DB)
+    con, cur = connect_to_db(HOST, USER, PASSWORD, PORT, NAME_DB)
 
     for x in range(number_of_inf):
         cur.execute('''INSERT INTO {}
@@ -859,13 +860,12 @@ def create_informations_db(number_of_inf):
                      random.choice(list_of_users)))
 
         con.commit()
-    con.close()
     print(f'    {number_of_inf} - Informations was added')
 
 
 def remove_users_and_informations():
     # remove users and informations
-    connect_to_db(HOST, USER, PASSWORD, PORT, NAME_DB)
+    con, cur = connect_to_db(HOST, USER, PASSWORD, PORT, NAME_DB)
     cur.execute('TRUNCATE informations_showinformations;'
                 'DELETE FROM informations_showinformations;'
                 'ALTER SEQUENCE informations_showinformations_id_seq RESTART WITH 1;'
@@ -873,7 +873,6 @@ def remove_users_and_informations():
                 'DELETE FROM auth_user;'
                 'ALTER SEQUENCE auth_user_id_seq RESTART WITH 1;')
     con.commit()
-    con.close()
 
     print('Users and informations was removed'
           '\n!!! REMEMBER TO CREATE SUPERUSER IN DJANGO!!!\n'
@@ -941,7 +940,7 @@ elif int(option) == 999:
     while step.lower() != 'next':
         step = input('write "next" to continue')
 
-    connect_to_db(HOST, USER, PASSWORD, PORT, NAME_DB)
+    con, cur = connect_to_db(HOST, USER, PASSWORD, PORT, NAME_DB)
 
     with MeasureTime('Creating tools took:'):
         CreateTool(NUMBER_OF_TOOLS)
@@ -953,7 +952,7 @@ elif int(option) == 999:
         Position()
         EmployeesInProject()
         con.close()
-    print('\nCreate virtual environment and copy production_simulator(from  folder TEST_localhost_) there'
+    print('\nCreate virtual environment and copy production_simulator(from  folder TEST_localhost) there'
           '\nChange directory to production_simulator'
           '\nMake connection to created DB production_simulator->settings DATABASES'
           '\nRun this commands in terminal'

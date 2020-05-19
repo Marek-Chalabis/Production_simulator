@@ -1,16 +1,16 @@
-from django.contrib import admin
-from django.urls import path, include
-from users import views as user_views
-from django.contrib.auth import views as auth_views
-from django.contrib.auth.views import LogoutView
+import debug_toolbar
 from django.conf import settings
 from django.conf.urls.static import static
-import debug_toolbar
+from django.contrib import admin
+from django.contrib.auth import views as auth_views
+from django.contrib.auth.views import LogoutView
+from django.urls import path, include
+from users import views as user_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('informations.urls'), name='informations'),
-    path('ERP/', include('erp.urls'), name='erp'),
+    path('erp/', include('erp.urls'), name='erp'),
 
     path('register/', user_views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
@@ -25,6 +25,9 @@ urlpatterns = [
          .as_view(template_name='password_reset_confirm.html'), name='password_reset_confirm'),
     path('password-reset/complete', auth_views.PasswordResetCompleteView
          .as_view(template_name='password_reset_complete.html'), name='password_reset_complete'),
+
+    # API
+    path('api/', include('api.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

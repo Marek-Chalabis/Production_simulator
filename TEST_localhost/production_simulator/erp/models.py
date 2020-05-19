@@ -5,7 +5,8 @@ from django.core.exceptions import ValidationError
 from phonenumber_field.modelfields import PhoneNumberField
 import uuid
 import phonenumbers
-
+import math
+import datetime
 
 def validate_zero(value):
     # checks if number is greater then 0
@@ -17,7 +18,7 @@ class Producers(models.Model):
     producer_id = models.AutoField(primary_key=True)
     producer_name = models.CharField(unique=True, max_length=30)
     contact_person = models.CharField(max_length=50)
-    give_phone_number = PhoneNumberField(blank=False, unique=True, default='+48')
+    phone_number = PhoneNumberField(blank=False, unique=True, default='+48')
     email = models.CharField(max_length=50, blank=True, null=True)
     rabat = models.DecimalField(max_digits=4, decimal_places=2, validators=[validate_zero])
     delivery_time_days = models.CharField(max_length=15, default='-')
@@ -26,7 +27,7 @@ class Producers(models.Model):
         return reverse('producer-detail', kwargs={'pk': self.pk})
 
     def formatted_phone_number(self):
-        return phonenumbers.format_number(self.give_phone_number, phonenumbers.PhoneNumberFormat.INTERNATIONAL)
+        return phonenumbers.format_number(self.phone_number, phonenumbers.PhoneNumberFormat.INTERNATIONAL)
 
     def __str__(self):
         return self.producer_name
@@ -54,15 +55,15 @@ class Employees(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     email = models.EmailField(max_length=50, blank=True, null=True)
-    give_phone_number = PhoneNumberField(blank=False, unique=True, default='+48')
+    phone_number = PhoneNumberField(blank=False, unique=True, default='+48')
     position = models.ForeignKey(Positions, on_delete=models.PROTECT, default=1)
-    date_of_employment = models.DateField(default=timezone.now)
+    date_of_employment = models.DateField(default=datetime.date.today)
 
     def get_absolute_url(self):
         return reverse('employee-detail', kwargs={'pk': self.pk})
 
     def formatted_phone_number(self):
-        return phonenumbers.format_number(self.give_phone_number, phonenumbers.PhoneNumberFormat.INTERNATIONAL)
+        return phonenumbers.format_number(self.phone_number, phonenumbers.PhoneNumberFormat.INTERNATIONAL)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}({self.position})"
@@ -107,9 +108,9 @@ class EmployeesInProjects(models.Model):
 class Tools(models.Model):
     tool_id = models.BigAutoField(primary_key=True)
     geometry = models.CharField(max_length=20, choices=(
-        ('Square', 'Square'), ('Ball', 'Ball'), ('Corner radius', 'Corner radius')), default='Square')
+        ('Square', 'Square'), ('Ball', 'Ball'), ('Corner radius', 'Corner radius')))
     material = models.CharField(max_length=20,
-                                choices=(('VHM', 'VHM'), ('HSS', 'HSS'), ('HSS-E', 'HSS-E')), default='VHM')
+                                choices=(('VHM', 'VHM'), ('HSS', 'HSS'), ('HSS-E', 'HSS-E')))
     diameter_mm = models.DecimalField(max_digits=5, decimal_places=2, validators=[validate_zero])
     shank_diameter_mm = models.DecimalField(max_digits=3, decimal_places=1, blank=True, null=True,
                                             validators=[validate_zero])
@@ -120,12 +121,12 @@ class Tools(models.Model):
     working_part_length_mm = models.DecimalField(max_digits=5, decimal_places=1, blank=True, null=True,
                                                  validators=[validate_zero])
     compensation_mm = models.FloatField(blank=True, null=True, validators=[validate_zero])
-    producer = models.ForeignKey(Producers, on_delete=models.SET_DEFAULT, default=1, validators=[validate_zero])
+    producer = models.ForeignKey(Producers, on_delete=models.SET_DEFAULT, default=1)
     status = models.CharField(max_length=20, choices=(
         ('Can be_use', 'Can be use'), ('Needs sharpening', 'Needs sharpening'), ('Utilize the tool', (
             'Utilize the tool'))), default='Can be use')
     price = models.DecimalField(max_digits=8, decimal_places=2, validators=[validate_zero])
-    date_of_purchase = models.DateField(default=timezone.now)
+    date_of_purchase = models.DateField(default=datetime.date.today)
     project = models.ForeignKey(Projects, default=1, on_delete=models.SET_DEFAULT)
 
     def get_absolute_url(self):
@@ -155,6 +156,15 @@ class Tools(models.Model):
     def __str__(self):
         return f'ID: {self.tool_id} GEOMETRY: {self.geometry} MATERIAL: {self.material} ' \
                f'DIAMETER: {self.diameter_mm} RADIUS: {self.tool_radius_mm}'
+
+    def save(self, *args, **kwargs):
+        # auto fill fields if some conditions are not met
+        self.shank_diameter_mm = self.shank_diameter_mm if self.shank_diameter_mm else math.ceil(self.diameter_mm)
+        self.compensation_mm = self.compensation_mm if self.compensation_mm else 0
+        self.tool_radius_mm = 0 if self.geometry == 'Square' \
+            else self.diameter_mm / 2 if self.geometry == 'Ball' \
+            else self.tool_radius_mm
+        super().save(*args, **kwargs)
 
     class Meta:
         managed = True

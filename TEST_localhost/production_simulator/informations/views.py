@@ -1,14 +1,15 @@
-from django.shortcuts import get_object_or_404
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.db.models import F, ExpressionWrapper
-from .models import ShowInformations
-from django.contrib.auth.models import User
-from django.db.models.functions import Concat
-from django.db.models import F, Value, CharField
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.decorators.cache import cache_page
+from django.db.models import F, Value, CharField
+from django.db.models.functions import Concat
+from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+
+from .models import ShowInformations
+
 # ==========query========
 query_information = ShowInformations.objects.select_related('author', 'author__profile').annotate(
         author_username=F('author__username'),
@@ -17,11 +18,12 @@ query_information = ShowInformations.objects.select_related('author', 'author__p
 
 
 def cache_decorator_for_anonymous(decorator):
-    # keeps cached pages only for anonymous register ones see all the current changes
+    """keeps cached pages only for anonymous register ones see all the current changes"""
 
     def _decorator(view):
         # holds decorator for anonymous
         decorated_view = decorator(view)
+
         def _view(request, *args, **kwargs):
             # If user is_anonymous
             if request.user.is_anonymous:
