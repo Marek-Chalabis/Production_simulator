@@ -344,7 +344,7 @@ Returns single Tool with extra data about project and producer
 | **time_for_project_hours**                | Float   |    exact, icontains, gt, gte, lt, lte, range    |Django’s built-in lookup  |
 | **profit**                | Float    |    exact, icontains, gt, gte, lt, lte, range    |Django’s built-in lookup  |
 | **employees**                | UUID    |    exact    |Django’s built-in lookup  |
-| **ordering**                |    |     order_by    | Can order by: project_id, time_for_project_hours, profit  |
+| **ordering**                |  String  |     order_by    | Can order by: project_id, time_for_project_hours, profit  |
 | **fields**      | String|Selective fields          | Returns only selected fields |
 | **omit**      |String |Selective fields          | Returns all fields except omitted ones |
 | **page**      | Integer|Pagination          | Returns page |
@@ -428,7 +428,7 @@ Returns single Project with extra data about tools and employees
 | **phone_number**                | String    |    exact, icontains   |Django’s built-in lookup  |
 | **date_of_employment**                | Date    |    exact, icontains, gt, gte, lt, lte, year, month, day, range    |Django’s built-in lookup  |
 | **position**                | Integer    |    exact, in     |Django’s built-in lookup  |
-| **ordering**                |    |     order_by    | Can order by: date_of_employment, position  |
+| **ordering**                |   String |     order_by    | Can order by: date_of_employment, position  |
 | **fields**      | String|Selective fields          | Returns only selected fields |
 | **omit**      |String |Selective fields          | Returns all fields except omitted ones |
 | **page**      | Integer|Pagination          | Returns page |
@@ -508,7 +508,7 @@ Returns single Employee with extra data about projects that he/she is in
 | Filter                | Type | lookups           | Description |
 | --------------------- | --|---------------- | ----------- |
 | **search**                |String | SearchFilter           | Search given value in: producer_name, contact_person, email, phone_number  |
-| **ordering**                |    |     order_by    | Can order by: dproducer_id, rabat  |
+| **ordering**                |  String  |     order_by    | Can order by: dproducer_id, rabat  |
 | **fields**      | String|Selective fields          | Returns only selected fields |
 | **omit**      |String |Selective fields          | Returns all fields except omitted ones |
 | **page**      | Integer|Pagination          | Returns page |
@@ -528,7 +528,7 @@ Adds new Producer
 
 | URI                  | Method         |**GET** |**PUT**     |**DELETE** |
 | -------------------- |  ------------- |--------- |  --------- |-------- |
-| `/api/v1/producers/{uuid}`  | Permission     |Users      | Users      | Users   |
+| `/api/v1/producers/{id}`  | Permission     |Users      | Users      | Users   |
 
 > GET
 
