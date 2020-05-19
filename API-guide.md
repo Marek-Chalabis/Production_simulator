@@ -24,7 +24,6 @@ Token: d5c46c545a579513e88456bd8a85aee36e7a646f
 | [/api/v1/users/{id}](#Users)                                 | Returns a user                           | N/A                   | N/A                               | N/A                                         |
 | [/api/v1/informations/](#Informations)                                 | Returns a list of informations                           | Creates a new information                   | N/A                               | N/A                                         |
 | [/api/v1/informations/{id}](#Informations)                                 | Returns a information                           |   N/A                 | Updates a information                               | Deletes a information                                        |N/A 
-| [/api/v1/informations/{id}/detail/](#Informations)                                 | Returns a more detailed data of information                           |     N/A                | N/A                               | N/A                                         |
 | [/api/v1/tools/](#Tools)                                 | Returns a list of tools                           | Creates a new tool                   | N/A                               | N/A                                         |
 | [/api/v1/tools/{id}](#Tools)                                 | Returns a tool                           |   N/A                 | Updates a tool                               | Deletes a tool                                        |N/A 
 | [/api/v1/tools/{id}/detail/](#Tools)                                 | Returns a more detailed data of tool                           |     N/A                | N/A                               | N/A                                         |
@@ -97,7 +96,7 @@ Returns token for user.
 
 | Filter                | Type | lookups           | Description |
 | --------------------- | --|---------------- | ----------- |
-| **search**                | String| SearchFilter           | Search given value in: username, last_name, email, branch  |
+| **search**                | | SearchFilter           | Search given value in: username, last_name, email, branch  |
 | **fields**      | String|Selective fields          | Returns only selected fields |
 | **omit**      | String|Selective fields          | Returns all fields except omitted ones |
 | **page**      |Integer |Pagination          | Returns page |
@@ -153,6 +152,8 @@ Returns informations about user.
 | **info**                |   String |exact, icontains            | Django’s built-in lookup |
 | **date_posted**                |Date    |exact, icontains, gt, gte, lt, lte, year, month, day, range           | Django’s built-in lookup |
 | **my**                |Boolean    |         | If my=True, returns all informations created by current user |
+| **ordering**                |    |     order_by    | Can order by: author, id, date_posted  |
+| **search**                | | SearchFilter           | Search given value in: title, info  |
 | **fields**      | String|Selective fields          | Returns only selected fields |
 | **omit**      |String |Selective fields          | Returns all fields except omitted ones |
 | **page**      | Integer|Pagination          | Returns page |
@@ -172,7 +173,7 @@ Adds new Information
 
 | URI                  | Method         |**GET** |**PUT**     |**DELETE** |
 | -------------------- |  ------------- |--------- |  --------- |-------- |
-| `/api/v1/informations/{id}`  | Permission     |All      | Users      | Users(creator)   |
+| `/api/v1/informations/{id}`  | Permission     |All      | Users(creator)      | Users(creator)   |
 
 > GET
 
@@ -185,14 +186,6 @@ Updates Information
 > DELETE
 
 Deletes Information
-
-| URI                  | Method         |**GET**     |
-| -------------------- |  ------------- |  --------- |
-| `/api/v1/informations/{id}/detail/`  | Permission     | Users      |
-
-> GET
-
-Returns single Information with extra data about author
 
 ### Tools
 
@@ -252,8 +245,9 @@ Returns single Information with extra data about author
 | **producer**                | Integer   |    exact, in    |Django’s built-in lookup  |
 | **status**                | String   |    exact, icontains    |Django’s built-in lookup  |
 | **price**                | ddd   |    exact, icontains, gt, gte, lt, lte, range     |Django’s built-in lookup  |
-| **date_of_purchase**                | Date   |    exact, icontains, gt, gte, lt, lte, year, month, day     |Django’s built-in lookup |
+| **date_of_purchase**                | Date   |    exact, icontains, gt, gte, lt, lte, year, month, day, range     |Django’s built-in lookup |
 | **project**                | Integer   |    exact, in    |Django’s built-in lookup  |
+| **ordering**                |    |     order_by    | Can order by: tool_id, diameter_mm, shank_diameter_mm, tool_radius_mm, tool_length_mm, working_part_length_mm, compensation_mm, price, date_of_purchase  |
 | **fields**      | String|Selective fields          | Returns only selected fields |
 | **omit**      |String |Selective fields          | Returns all fields except omitted ones |
 | **page**      | Integer|Pagination          | Returns page |
@@ -341,6 +335,7 @@ Returns single Tool with extra data about project and producer
 | **time_for_project_hours**                | Float   |    exact, icontains, gt, gte, lt, lte, range    |Django’s built-in lookup  |
 | **profit**                | Float    |    exact, icontains, gt, gte, lt, lte, range    |Django’s built-in lookup  |
 | **employees**                | UUID    |    exact    |Django’s built-in lookup  |
+| **ordering**                |    |     order_by    | Can order by: project_id, time_for_project_hours, profit  |
 | **fields**      | String|Selective fields          | Returns only selected fields |
 | **omit**      |String |Selective fields          | Returns all fields except omitted ones |
 | **page**      | Integer|Pagination          | Returns page |
