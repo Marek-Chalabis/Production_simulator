@@ -125,7 +125,7 @@ Returns list of users with branch and image.
 
 > GET
 
-Returns informations about user.
+Returns informations about user with branch and image.
 
 ### Informations
 
