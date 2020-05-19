@@ -1,5 +1,5 @@
 # Production_simulator(https://productionsimulator.herokuapp.com/)
-> Web application that allows to manage projects, employees and tools of production, it also allows to add information(posts) for others employees (project maybe be offline due to the limits on AWS, if you want to see it LIVE let me know)
+> Web application that allows to manage projects, employees and tools of production, it also allows to add information(posts) for others employees. + REST API (project maybe be offline due to the limits on AWS, if you want to see it LIVE let me know)
 
 ## Table of contents
 * [General info](#general-info)
@@ -18,10 +18,7 @@
 * Setup for project should be as easy as possible, with all necessary instrucitons
 * for each of the modulus there will be instructions how to run it
 
-### Project is separated into three major moduls;
-* Using Python to create a logical DB(PostgreSQL) for project
-* Using Django to display and handle interactions between DB and users
-* Make it live using Heroku + AWS
+<b>REST API</b> documentation -> [API-guide.md](API-guide.md)
 
 ## Login details
 Login as admin:
@@ -41,6 +38,7 @@ Or as any user created -> users_informations.txt
 * Python - version 3.8.2
 * Django - version 3.05
 * PostgreSQL - version 	12.2
+* Django REST framework - version 3.11
 * AWS(RDS, S3)
 * bootrap - version 4.4.1
 * jquery - version 3.4.1
@@ -48,7 +46,7 @@ Or as any user created -> users_informations.txt
 
 ## Setup
 
-### Modules 1(Database) +2(localhost)
+### Database + local server
 * Run this pip install (run as administrator):
 
 	(this cuould be outdated just install any libary needed)
@@ -59,11 +57,12 @@ Or as any user created -> users_informations.txt
 * Run Create_DB_PostgreSQL and choose 999, follow the instructions(or attach the default database from this repository, but I 
 highly ENCOURAGE you to create your own database, it is a large part of the project)
 
-### Module 3 
-* For instructions to deploy it on AWS go to -> AWS_HEROKU.md
+### AWS + Heroku
+* For instructions to deploy it on AWS go to -> [AWS_HEROKU.md](AWS_HEROKU.md)
 
 ## Features
 List of features:
+* Fully functional REST API
 * optimized queries
 * authorization system(login, logout, register, reset password, update)
 * fully functional "blog" with pagination(adjustment for production needs)
