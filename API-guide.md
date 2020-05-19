@@ -105,7 +105,7 @@ Returns token for user.
 
 | Filter                | Type | lookups           | Description |
 | --------------------- | --|---------------- | ----------- |
-| **search**                | | SearchFilter           | Search given value in: username, last_name, email, branch  |
+| **search**                | String| SearchFilter           | Search given value in: username, last_name, email, branch  |
 | **fields**      | String|Selective fields          | Returns only selected fields |
 | **omit**      | String|Selective fields          | Returns all fields except omitted ones |
 | **page**      |Integer |Pagination          | Returns page |
