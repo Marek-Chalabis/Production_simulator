@@ -22,7 +22,7 @@ Random token from User -> Token: 7d6a5ca494efb8b2de99b1019d8dc2ffeeec2a82
 
 | URI                                              | GET                                                 | POST                                  | PUT                               | DELETE                                      |
 | ----------------------------------------------------- | --------------------------------------------------- | ------------------------------------- | --------------------------------- | ------------------------------------------- |
-| [/api/v1/](#URIs)                             | Returns set of URLs | N/A                                   | N/A                               | N/A                                         |
+| [/api/v1/](#URIs)                             | Returns set of URIs | N/A                                   | N/A                               | N/A                                         |
 | [/api/get-token](#Token)                                 | N/A                            | Returns token for user                 | N/A                               | N/A                                         |
 | [/api/v1/users/](#Users)                                 | Returns a list of users                           | N/A                   | N/A                               | N/A                                         |
 | [/api/v1/users/{id}](#Users)                                 | Returns a user                           | N/A                   | N/A                               | N/A                                         |
@@ -62,7 +62,7 @@ Random token from User -> Token: 7d6a5ca494efb8b2de99b1019d8dc2ffeeec2a82
 
 > GET
 
-Returns set of avalible URLs.
+Returns set of avalible URIs.
 
 ### Token
 
