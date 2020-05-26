@@ -40,7 +40,7 @@ Or as any user created -> [users_informations.txt](users_informations.txt)
 * PostgreSQL - version 	12.2
 * Django REST framework - version 3.11
 * AWS(RDS, S3)
-* bootrap - version 4.4.1
+* Bootstrap - version 4.4.1
 * jquery - version 3.4.1
 * HTML5/CSS
 
