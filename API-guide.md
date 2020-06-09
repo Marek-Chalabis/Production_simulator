@@ -47,12 +47,12 @@ Random token from User -> Token: 7d6a5ca494efb8b2de99b1019d8dc2ffeeec2a82
 
 ```
 {
-    "users": "http://127.0.0.1:8000/api/v1/users/",
-    "informations": "http://127.0.0.1:8000/api/v1/informations/",
-    "tools": "http://127.0.0.1:8000/api/v1/tools/",
-    "projects": "http://127.0.0.1:8000/api/v1/projects/",
-    "employees": "http://127.0.0.1:8000/api/v1/employees/",
-    "producers": "http://127.0.0.1:8000/api/v1/producers/"
+    "users": "https://productionsimulator.herokuapp.com/api/v1/users/",
+    "informations": "https://productionsimulator.herokuapp.com/api/v1/informations/",
+    "tools": "https://productionsimulator.herokuapp.com/api/v1/tools/",
+    "projects": "https://productionsimulator.herokuapp.com/api/v1/projects/",
+    "employees": "https://productionsimulator.herokuapp.com/api/v1/employees/",
+    "producers": "https://productionsimulator.herokuapp.com/api/v1/producers/"
 }
 ```
 
