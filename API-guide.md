@@ -95,13 +95,13 @@ Returns token for user.
 
 ```
 {
-    "id": 2,
-    "username": "mwjxfqdgw",
-    "first_name": "Maxwell",
-    "last_name": "Mazurek",
-    "email": "gkhopldi@mail2uptown.com",
+    "id": 3,
+    "username": "qobuckpzsua",
+    "first_name": "Jakub",
+    "last_name": "Chmielewska",
+    "email": "tyxwhl@mail2joey.com",
     "branch": "Lublin",
-    "image": "http://127.0.0.1:8000/media/profile_image/1.jpg"
+    "image": "https://production-simulator-live.s3.eu-west-2.amazonaws.com/profile_image/7.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVGRKEV6O54SLRAVI%2F20200609%2Feu-west-2%2Fs3%2Faws4_request&X-Amz-Date=20200609T123809Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=90c2e8237f94dcdcc7aaa064ac8f8f118681770c00511f824af65e33dae485c5"
 }
 ```
 
