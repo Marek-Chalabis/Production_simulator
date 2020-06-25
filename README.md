@@ -1,5 +1,5 @@
 # Production_simulator(https://productionsimulator.herokuapp.com/)
-> Web application that allows to manage projects, employees and tools of production, it also allows to add information(posts) for others employees. + REST API (project maybe be offline due to free tier usage limits on AWS, if you want to see it LIVE let me know).
+> Web application that allows to manage projects, employees and tools of production, it also allows to add information(posts) for others employees. + REST API (project maybe be offline due to free tier usage limits on AWS, if you want to see it LIVE let me know)
 
 ## Table of contents
 * [General info](#general-info)
