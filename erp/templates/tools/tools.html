@@ -1,0 +1,60 @@
+{% extends 'base_search.html' %}
+{% load crispy_forms_tags %}
+{% load cache %}
+
+{% block title %}
+Tools
+{% endblock %}
+
+{% block search %}
+{{ filter.form|crispy }}
+{% endblock %}
+
+{% block results %}
+<table class="table table-sm">
+    <tbody>
+    <tr onclick="window.location='#';">
+        <th>Tool id</th>
+        <th>Geometry</th>
+        <th>Material</th>
+        <th>Diameter(mm)</th>
+        <th>Tool Radius(mm)</th>
+        <th>Tool Length(mm)</th>
+        <th>Working length(mm)</th>
+        <th>Compensation(mm)</th>
+        <th>Shank diameter(mm)</th>
+        <th>Tool is in project</th>
+        <th>Producer</th>
+        <th>Status</th>
+    </tr>
+    {% for tool in filter.qs.iterator %}
+    <tr onclick="window.location='{% url 'tool-detail' tool.tool_id %}';" style="cursor:pointer;">
+        {% if tool.status == 'Utilize the tool' %}
+    <tr onclick="window.location='{% url 'tool-detail' tool.tool_id %}';" style="cursor:pointer;" class="bg-warning">
+        {% endif %}
+        <td>{{ tool.tool_id }}</td>
+        <td>{{ tool.geometry }}</td>
+        <td>{{ tool.material }}</td>
+        <td>{{ tool.diameter_mm }}</td>
+        <td>{{ tool.tool_radius_mm }}</td>
+        <td>{{ tool.tool_length_mm }}</td>
+        <td>{{ tool.working_part_length_mm }}</td>
+        <td>{{ tool.compensation_mm }}</td>
+        <td>{{ tool.shank_diameter_mm }}</td>
+        <td>{{ tool.project.project_name }}</td>
+        <td>{{ tool.producer.producer_name }}</td>
+        <td>{{ tool.status }}</td>
+        </a>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+{% block right %}
+<div class="p-2">
+    <a style="text-decoration: none;" href="{% url 'tool-create' %}">
+        <button type="button" class="btn-lg btn-block btn-primary">Add tool</button>
+    </a>
+</div>
+{% endblock %}

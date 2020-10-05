@@ -18,21 +18,21 @@
 * Setup for project should be as easy as possible, with all necessary instrucitons
 * for each of the modulus there will be instructions how to run it
 
-<b>REST API</b> documentation -> [API-guide.md](API-guide.md)
+<b>REST API</b> documentation -> [API-guide.md](api/API-guide.md)
 
 ## Login details
 Login as admin:
 * username - admin
 * password - admin
 
-Or as any user created -> [users_informations.txt](users_informations.txt)
+Or as any user created -> [users_informations.txt](Assets/users_informations.txt)
 
 ## Screenshots
-![Employee](./img/employee.PNG)
-![Information](./img/information.PNG)
-![Profile](./img/profile.PNG)
-![Project](./img/project.PNG)
-![Tool](./img/tool.PNG)
+![Employee](Assets/img/employee.PNG)
+![Information](Assets/img/information.PNG)
+![Profile](Assets/img/profile.PNG)
+![Project](Assets/img/project.PNG)
+![Tool](Assets/img/tool.PNG)
 
 ## Technologies
 * Python - version 3.8.2
@@ -47,18 +47,22 @@ Or as any user created -> [users_informations.txt](users_informations.txt)
 ## Setup
 
 ### Database + local server
-* Run this pip install (run as administrator):
+1.Install python and PostgreSQL
 
-	(this cuould be outdated just install any libary needed)
-	pip install numpy psycopg2 PyPDF2 requests selenium django django-crispy-forms django-filter django-bootstrap-form django-phonenumber-field phonenumbers  Pillow django-debug-toolbar
-	
-	install Chrome + webdriver (https://www.youtube.com/watch?v=dz59GsdvUF8)
-	
-* Run Create_DB_PostgreSQL and choose 999, follow the instructions(or attach the default database from this repository, but I 
-highly ENCOURAGE you to create your own database, it is a large part of the project)
+2.Run
+
+```
+    pip install -r requirements.txt
+```
+
+3.Create server in PostgreSQL
+
+4.Run [create_db_postgresql.py](Assets/create_db_postgresql.py) (in Assets folder) and follow instructions 
+
+<b>Read comments on the top of the file</b>
 
 ### AWS + Heroku
-* For instructions to deploy it on AWS go to -> [AWS_HEROKU_instructions.md](AWS_HEROKU_instructions.md)
+* For instructions to deploy it on AWS go to: [AWS_HEROKU_instructions.md](Assets/AWS_HEROKU_instructions.md)
 
 ## Features
 List of features:
